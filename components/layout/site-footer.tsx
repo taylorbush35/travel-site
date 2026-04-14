@@ -1,0 +1,30 @@
+import Link from "next/link";
+
+export function SiteFooter() {
+  return (
+    <footer className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between md:px-10">
+        <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+          Travel inspiration for solo, couples, and groups.
+        </p>
+        <div className="flex items-center gap-5">
+          <Link
+            href="/"
+            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+          >
+            Home
+          </Link>
+          <Link
+            href="/countries"
+            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+          >
+            Countries
+          </Link>
+          <p className="text-xs text-[var(--color-text-subtle)]">
+            {new Date().getFullYear()}
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -1,65 +1,42 @@
-import Image from "next/image";
+import Link from "next/link";
+import { FeaturedCountries } from "@/components/home/featured-countries";
+import { getFeaturedCountries } from "@/lib/countries";
 
 export default function Home() {
+  const featuredCountries = getFeaturedCountries();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24">
+      <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-12 md:px-14 md:py-16">
+        <div className="max-w-3xl space-y-6">
+          <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+            Travel Journal
           </p>
+          <h1 className="text-4xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-6xl">
+            Clean, thoughtful travel inspiration for wherever you go next.
+          </h1>
+          <p className="max-w-2xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
+            Travel planning and traveling bring me a lot of joy. This site
+            shares countries I have visited and helps solo travelers, couples,
+            and groups find a useful starting point for their own trips.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Link
+              href="/countries"
+              className="rounded-full border border-[var(--color-border-strong)] px-5 py-2 text-sm text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-accent-soft)]"
+            >
+              Explore countries
+            </Link>
+            <p className="text-sm text-[var(--color-text-subtle)]">
+              Start with a region you are curious about.
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      <div className="mt-20">
+        <FeaturedCountries countries={featuredCountries} />
+      </div>
     </div>
   );
 }
