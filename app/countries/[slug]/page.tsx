@@ -28,13 +28,13 @@ export default async function CountryDetailPage({
       <div className="space-y-6">
         <Link
           href="/countries"
-          className="inline-block text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+          className="inline-block text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-signature)]"
         >
           Back to countries
         </Link>
 
         <div className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+          <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-signature)]">
             {country.region}
           </p>
           <h1 className="text-4xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-5xl">
@@ -74,7 +74,7 @@ export default async function CountryDetailPage({
             {country.highlights.map((highlight) => (
               <li
                 key={highlight}
-                className="border-l border-[var(--color-border)] pl-4 text-sm leading-7 text-[var(--color-text-muted)] md:text-base"
+                className="border-l border-[var(--color-signature)] pl-4 text-sm leading-7 text-[var(--color-text-muted)] md:text-base"
               >
                 {highlight}
               </li>

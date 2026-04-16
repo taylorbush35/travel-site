@@ -10,13 +10,13 @@ export function SiteFooter() {
         <div className="flex items-center gap-5">
           <Link
             href="/"
-            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-signature)]"
           >
             Home
           </Link>
           <Link
             href="/countries"
-            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+            className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-signature)]"
           >
             Countries
           </Link>

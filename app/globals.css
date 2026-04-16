@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  a {
+    color: inherit;
+  }
+}
+
 :root {
   --color-bg: #f6f3ef;
   --color-surface: #fcfaf8;
@@ -9,6 +15,11 @@
   --color-border: #ddd6cf;
   --color-border-strong: #c8bfb6;
   --color-accent-soft: #e9e1d8;
+  /* Primary brand accent — rich dark purple */
+  --color-signature: #5b3a8e;
+  --color-signature-strong: #472a6b;
+  --color-signature-soft: #ebe4f4;
+  --color-signature-ink: #3d265f;
 }
 
 @theme inline {
@@ -23,11 +34,17 @@ body {
   line-height: 1.5;
 }
 
-a {
-  color: inherit;
+a:focus-visible {
+  outline: 2px solid var(--color-signature);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-signature);
+  outline-offset: 2px;
 }
 
 ::selection {
-  background: var(--color-accent-soft);
+  background: var(--color-signature-soft);
   color: var(--color-text-primary);
 }

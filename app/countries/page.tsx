@@ -13,7 +13,7 @@ export default function CountriesPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24">
       <section className="space-y-5">
-        <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+        <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-signature)]">
           Countries
         </p>
         <h1 className="max-w-3xl text-4xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-5xl">

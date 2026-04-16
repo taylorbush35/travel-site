@@ -4,9 +4,13 @@ import { Country } from "@/lib/types";
 
 type CountryCardProps = {
   country: Country;
+  showTravelStyles?: boolean;
 };
 
-export function CountryCard({ country }: CountryCardProps) {
+export function CountryCard({
+  country,
+  showTravelStyles = true,
+}: CountryCardProps) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-colors hover:border-[var(--color-border-strong)]">
       <Link href={`/countries/${country.slug}`} className="block">
@@ -20,7 +24,7 @@ export function CountryCard({ country }: CountryCardProps) {
         </div>
         <div className="space-y-4 p-6">
           <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+            <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-signature)]">
               {country.region}
             </p>
             <h3 className="text-2xl font-medium tracking-tight text-[var(--color-text-primary)]">
@@ -31,16 +35,18 @@ export function CountryCard({ country }: CountryCardProps) {
             </p>
           </div>
 
-          <ul className="flex flex-wrap gap-2">
-            {country.travelStyles.map((style) => (
-              <li
-                key={style}
-                className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs capitalize tracking-wide text-[var(--color-text-muted)]"
-              >
-                {style}
-              </li>
-            ))}
-          </ul>
+          {showTravelStyles ? (
+            <ul className="flex flex-wrap gap-2">
+              {country.travelStyles.map((style) => (
+                <li
+                  key={style}
+                  className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs capitalize tracking-wide text-[var(--color-text-muted)]"
+                >
+                  {style}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </Link>
     </article>

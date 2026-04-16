@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -6,6 +9,8 @@ const navItems = [
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
+
   return (
     <header className="border-b border-[var(--color-border)] bg-[var(--color-bg)]">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 md:px-10">
@@ -21,7 +26,11 @@ export function SiteHeader() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
+                  className={`text-sm transition-colors ${
+                    (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
+                      ? "text-[var(--color-signature)]"
+                      : "text-[var(--color-text-muted)] hover:text-[var(--color-signature)]"
+                  }`}
                 >
                   {item.label}
                 </Link>
