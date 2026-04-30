@@ -7,13 +7,16 @@
 }
 
 :root {
-  --color-bg: #f6f3ef;
+  /* Page canvas — very soft desaturated purple */
+  --color-bg: #f6f3fb;
+  /* Bordered sections — original warm sandy neutral (contrasts with purple page) */
   --color-surface: #fcfaf8;
   --color-text-primary: #1f1d1b;
   --color-text-muted: #55504a;
   --color-text-subtle: #7b736b;
-  --color-border: #ddd6cf;
-  --color-border-strong: #c8bfb6;
+  /* Strong delineation — still neutral, not black */
+  --color-border: #958b80;
+  --color-border-strong: #756c62;
   --color-accent-soft: #e9e1d8;
   /* Primary brand accent — rich dark purple */
   --color-signature: #5b3a8e;
@@ -25,6 +28,10 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--color-bg);
 }
 
 body {

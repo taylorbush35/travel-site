@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CountryCityTags } from "@/components/countries/country-city-tags";
 import { Country } from "@/lib/types";
 
 type CountryCardProps = {
@@ -12,7 +13,7 @@ export function CountryCard({
   showTravelStyles = true,
 }: CountryCardProps) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition-colors hover:border-[var(--color-border-strong)]">
+    <article className="group overflow-hidden rounded-2xl border border-[var(--color-border)] transition-colors hover:border-[var(--color-border-strong)]">
       <Link href={`/countries/${country.slug}`} className="block">
         <div className="relative h-48 w-full border-b border-[var(--color-border)] bg-[var(--color-accent-soft)]">
           <Image
@@ -23,13 +24,11 @@ export function CountryCard({
           />
         </div>
         <div className="space-y-4 p-6">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-signature)]">
-              {country.region}
-            </p>
+          <div className="space-y-3">
             <h3 className="text-2xl font-medium tracking-tight text-[var(--color-text-primary)]">
               {country.name}
             </h3>
+            <CountryCityTags cities={country.cities} />
             <p className="text-sm leading-7 text-[var(--color-text-muted)]">
               {country.shortDescription}
             </p>

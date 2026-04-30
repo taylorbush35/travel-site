@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24">
-      <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-12 md:px-14 md:py-16">
+      <section className="rounded-2xl border border-[var(--color-border)] px-8 py-12 md:px-14 md:py-16">
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-signature)]">
@@ -34,7 +34,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative h-72 overflow-hidden rounded-2xl border border-[var(--color-border)] lg:h-[30rem]">
+          <div className="relative h-72 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)] lg:h-[30rem]">
             <Image
               src="/images/header-flight.png"
               alt="View from an airplane window above the clouds"
@@ -47,7 +47,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-14 rounded-2xl border border-[var(--color-border)] px-6 py-8 md:mt-16 md:px-10 md:py-10">
+      <div className="mt-14 md:mt-16">
+        <FeaturedCountries countries={featuredCountries} />
+      </div>
+
+      <section className="mt-20 rounded-2xl border border-[var(--color-border)] px-6 py-8 md:px-10 md:py-10">
         <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-center md:gap-8">
           <div className="relative h-64 overflow-hidden rounded-xl border border-[var(--color-border)] md:h-96">
             <Image
@@ -92,10 +96,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <div className="mt-20">
-        <FeaturedCountries countries={featuredCountries} />
-      </div>
     </div>
   );
 }

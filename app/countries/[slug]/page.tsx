@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CountryCityTags } from "@/components/countries/country-city-tags";
 import { getAllCountries, getCountryBySlug } from "@/lib/countries";
 
 type CountryDetailPageProps = {
@@ -40,6 +41,7 @@ export default async function CountryDetailPage({
           <h1 className="text-4xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-5xl">
             {country.name}
           </h1>
+          <CountryCityTags cities={country.cities} className="pt-1" />
           <p className="max-w-3xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
             {country.shortDescription}
           </p>
@@ -56,7 +58,7 @@ export default async function CountryDetailPage({
         </div>
       </div>
 
-      <section className="mt-10 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+      <section className="mt-10 overflow-hidden rounded-2xl border border-[var(--color-border)]">
         <div className="relative h-72 border-b border-[var(--color-border)] bg-[var(--color-accent-soft)] md:h-96">
           <Image
             src={country.heroImage}

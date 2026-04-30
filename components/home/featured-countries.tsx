@@ -12,9 +12,6 @@ export function FeaturedCountries({ countries }: FeaturedCountriesProps) {
       <div className="space-y-10 md:space-y-12">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
           <div className="max-w-xl space-y-3">
-            <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-signature)]">
-              Featured
-            </p>
             <h2 className="text-3xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-4xl">
               Where I&apos;d start
             </h2>
