@@ -7,9 +7,9 @@
 }
 
 :root {
-  /* Page canvas — very soft desaturated purple */
-  --color-bg: #f6f3fb;
-  /* Bordered sections — original warm sandy neutral (contrasts with purple page) */
+  /* Page canvas — warm editorial off-white */
+  --color-bg: #faf9f7;
+  /* Bordered sections — soft warm neutral */
   --color-surface: #fcfaf8;
   --color-text-primary: #1f1d1b;
   --color-text-muted: #55504a;
@@ -35,16 +35,34 @@ html {
 }
 
 body {
-  /* Soft top wash so the page feels like one surface (portfolio-style) */
-  background: radial-gradient(
-      ellipse 120% 80% at 50% -20%,
-      rgba(255, 255, 255, 0.55) 0%,
-      transparent 55%
+  /* Soft warm wash — no purple cast */
+  background:
+    radial-gradient(
+      ellipse 115% 75% at 45% -18%,
+      rgba(255, 252, 247, 0.9) 0%,
+      transparent 52%
     ),
     var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   line-height: 1.5;
+}
+
+/* Very subtle editorial grain (non-interactive, sits behind content) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+body > div {
+  position: relative;
+  z-index: 1;
 }
 
 a:focus-visible {

@@ -7,91 +7,73 @@ export default function Home() {
   const featuredCountries = getFeaturedCountries();
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-6 py-14 md:px-10 md:py-20">
-      <section className="grid items-center gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+    <div className="mx-auto w-full max-w-5xl px-6 pb-16 pt-20 md:px-10 md:pb-24 md:pt-28 lg:pt-32">
+      <section className="relative isolate grid items-start gap-14 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-x-12 lg:gap-y-12">
+        <div className="max-w-2xl lg:max-w-none lg:pr-6 lg:pt-1">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500/50">
             TRAVEL JOURNAL
           </p>
-          <h1 className="mb-2 mt-1 text-4xl font-semibold tracking-tight text-[var(--color-text-primary)] md:text-6xl">
-            Travel, but intentional.
+          <h1 className="mt-2 text-4xl font-semibold leading-[1.16] tracking-tight text-[var(--color-text-primary)] md:text-5xl md:leading-[1.14] lg:text-[3.2rem] lg:leading-[1.12]">
+            Travel, but make it intentional.
           </h1>
-          <p className="mb-6 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
-            Where I would go again, and where you might want to go next.
+          <p className="mt-6 max-w-xl text-base leading-[1.68] text-[var(--color-text-muted)] md:text-[1.0625rem] md:leading-[1.7]">
+            The places I&apos;d go back to in a heartbeat — and how I&apos;d do
+            them better the second time.
           </p>
-          <p className="max-w-xl text-sm leading-7 text-[var(--color-text-subtle)]">
-            Built from my own travel experiences, and meant to help you plan
-            yours.
-          </p>
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="mt-6 max-w-xl space-y-4">
+            <p className="text-sm leading-7 text-[var(--color-text-muted)]">
+              Like most people, I&apos;ve always wanted to travel.
+            </p>
+            <p className="text-sm leading-7 text-[var(--color-text-muted)]">
+              In 2024, I finally booked my first solo international trip and
+              never looked back.
+            </p>
+            <p className="text-sm leading-7 text-[var(--color-text-muted)]">
+              What started as one trip turned into ten countries in two years -
+              and I&apos;m just getting started. I love planning travel almost
+              as much as doing it myself, which is exactly why this site exists.
+            </p>
+            <p className="text-sm leading-7 text-[var(--color-text-muted)]">
+              This is where I keep the places I&apos;ve been, what I&apos;d do
+              again, and what I&apos;d recommend if you&apos;re planning your
+              own trip.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
               href="/countries"
-              className="rounded-full border border-[var(--color-signature)] bg-[var(--color-signature)] px-5 py-2 text-sm font-medium !text-white transition-colors hover:border-[var(--color-signature-strong)] hover:bg-[var(--color-signature-strong)] hover:!text-white"
+              className="inline-flex items-center rounded-xl border border-[#5c5466]/22 bg-[#f0ece6] px-6 py-2.5 text-sm font-medium text-[#3f3945] shadow-none transition-all duration-300 ease-out hover:scale-[1.035] hover:border-[#5c5466]/38 hover:bg-[#e4ddd4] hover:text-[#2c272f] active:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5c5466]/45"
             >
-              Start exploring destinations
+              Explore destinations →
             </Link>
           </div>
         </div>
 
-        <div className="relative h-80 w-full max-w-md justify-self-end overflow-hidden rounded-3xl shadow-[0_20px_55px_rgba(34,26,52,0.14)] md:h-96 lg:max-w-none lg:h-[28rem]">
-          <Image
-            src="/images/header-flight.png"
-            alt="View from an airplane window above the clouds"
-            fill
-            priority
-            className="object-cover"
-            sizes="(min-width: 1024px) 42vw, 100vw"
-          />
+        <div className="group relative w-full justify-self-end pb-12 lg:-mr-1 lg:mt-2 lg:pb-0">
+          <div className="relative h-80 w-full max-w-[22rem] origin-[55%_45%] overflow-hidden rounded-[1.35rem] shadow-[0_14px_44px_-12px_rgba(42,38,34,0.16),0_6px_22px_-14px_rgba(42,38,34,0.08)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform:rotate(1deg)_translateY(0.6rem)] group-hover:[transform:rotate(1deg)_translateY(0.15rem)_scale(1.02)] group-hover:shadow-[0_20px_52px_-14px_rgba(42,38,34,0.18),0_8px_28px_-12px_rgba(42,38,34,0.1)] sm:max-w-none md:h-96 lg:ml-auto lg:h-[28rem] lg:max-w-[min(100%,26rem)]">
+            <Image
+              src="/images/header-flight.png"
+              alt="View from an airplane window above the clouds"
+              fill
+              priority
+              className="object-cover"
+              sizes="(min-width: 1024px) 400px, 100vw"
+            />
+          </div>
+          <div className="absolute bottom-0 left-4 z-10 h-[10.5rem] w-[64%] origin-[48%_52%] overflow-hidden rounded-[1.25rem] border-[3px] border-white/90 shadow-[0_16px_36px_-16px_rgba(40,34,30,0.42)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform:rotate(-2deg)_translateY(18%)] group-hover:[transform:rotate(-2deg)_translateY(12%)_scale(1.02)] sm:h-[11.5rem] md:h-[12.5rem] lg:bottom-6 lg:left-1 lg:w-[66%]">
+            <Image
+              src="/images/solo travel about.jpeg"
+              alt="Taylor capturing a travel memory in the city"
+              fill
+              className="h-full w-full object-cover"
+              sizes="(min-width: 1024px) 240px, 62vw"
+            />
+          </div>
         </div>
       </section>
 
       <FeaturedCountries countries={featuredCountries} />
 
-      <section className="mt-16 border-t border-neutral-200/60 pb-12 pt-12">
-        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[320px_minmax(0,720px)] lg:gap-10">
-          <div className="relative min-h-0 w-full overflow-hidden rounded-2xl max-lg:aspect-[3/4] lg:h-full">
-            <Image
-              src="/images/solo travel about.jpeg"
-              alt="Taylor on a solo travel day"
-              fill
-              className="h-full w-full object-cover"
-              sizes="(max-width: 1023px) 100vw, 320px"
-            />
-          </div>
-
-          <div className="min-w-0">
-            <div className="flex items-center gap-2.5">
-              <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
-                ABOUT
-              </p>
-              <span
-                className="h-px w-10 bg-neutral-200/80"
-                aria-hidden="true"
-              />
-            </div>
-            <div className="mt-1.5 space-y-3">
-              <p className="text-sm leading-6 text-[var(--color-text-muted)]">
-                Like most people, I&apos;ve always wanted to travel.
-              </p>
-              <p className="text-sm leading-6 text-[var(--color-text-muted)]">
-                In 2024, I finally booked my first solo international trip and
-                never looked back.
-              </p>
-              <p className="text-sm leading-6 text-[var(--color-text-muted)]">
-                What started as one trip turned into ten countries in two years
-                - and I&apos;m just getting started. I love planning travel
-                almost as much as doing it myself, which is exactly why this
-                site exists.
-              </p>
-              <p className="text-sm leading-6 text-[var(--color-text-muted)]">
-                This is where I keep the places I&apos;ve been, what I&apos;d do
-                again, and what I&apos;d recommend if you&apos;re planning your
-                own trip.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
