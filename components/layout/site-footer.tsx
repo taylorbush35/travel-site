@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between md:px-10">
+    <footer className="bg-[var(--color-bg)]">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-8 md:flex-row md:items-center md:justify-between md:px-10">
         <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
-          Travel inspiration for solo, couples, and groups.
+          Travel inspiration, intentionally curated.
         </p>
         <div className="flex items-center gap-5">
           <Link

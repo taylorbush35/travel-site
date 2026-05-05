@@ -1,53 +1,29 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CountryCityTags } from "@/components/countries/country-city-tags";
 import { Country } from "@/lib/types";
 
 type CountryCardProps = {
   country: Country;
-  showTravelStyles?: boolean;
 };
 
-export function CountryCard({
-  country,
-  showTravelStyles = true,
-}: CountryCardProps) {
+export function CountryCard({ country }: CountryCardProps) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-[var(--color-border)] transition-colors hover:border-[var(--color-border-strong)]">
-      <Link href={`/countries/${country.slug}`} className="block">
-        <div className="relative h-48 w-full border-b border-[var(--color-border)] bg-[var(--color-accent-soft)]">
-          <Image
-            src={country.cardImage}
-            alt={`${country.name} preview`}
-            fill
-            className="object-cover p-10 opacity-65 transition-opacity duration-300 group-hover:opacity-85"
-          />
-        </div>
-        <div className="space-y-4 p-6">
-          <div className="space-y-3">
-            <h3 className="text-2xl font-medium tracking-tight text-[var(--color-text-primary)]">
-              {country.name}
-            </h3>
-            <CountryCityTags cities={country.cities} />
-            <p className="text-sm leading-7 text-[var(--color-text-muted)]">
-              {country.shortDescription}
-            </p>
-          </div>
-
-          {showTravelStyles ? (
-            <ul className="flex flex-wrap gap-2">
-              {country.travelStyles.map((style) => (
-                <li
-                  key={style}
-                  className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs capitalize tracking-wide text-[var(--color-text-muted)]"
-                >
-                  {style}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      </Link>
-    </article>
+    <Link
+      href={`/countries/${country.slug}`}
+      className="group flex flex-col rounded-2xl border border-neutral-200/60 bg-white/30 p-6 transition-colors hover:border-purple-200 hover:bg-white/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-signature)]"
+    >
+      <h3 className="text-2xl font-semibold tracking-tight text-[var(--color-text-primary)]">
+        {country.name}
+      </h3>
+      <div className="mt-2">
+        <CountryCityTags cities={country.cities} />
+      </div>
+      <p className="mt-4 flex-1 text-sm leading-7 text-[var(--color-text-subtle)]">
+        {country.shortDescription}
+      </p>
+      <p className="mt-5 text-sm text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-signature)]">
+        View guide →
+      </p>
+    </Link>
   );
 }

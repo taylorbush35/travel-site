@@ -11,23 +11,31 @@ export default function CountriesPage() {
   const countries = getAllCountries();
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-6 py-16 md:px-10 md:py-24">
-      <section className="space-y-5">
-        <p className="text-xs uppercase tracking-[0.16em] text-[var(--color-signature)]">
-          Countries
+    <div className="mx-auto w-full max-w-5xl px-6 pb-16 pt-20 md:px-10 md:pb-20 md:pt-28">
+      <header>
+        <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+          COUNTRIES
         </p>
-        <h1 className="max-w-3xl text-4xl font-medium tracking-tight text-[var(--color-text-primary)] md:text-5xl">
+        <h1 className="mb-2 mt-1 max-w-3xl text-5xl font-semibold tracking-tight text-[var(--color-text-primary)] md:text-6xl">
           Places I have visited, organized to help you choose your next trip.
         </h1>
-        <p className="max-w-3xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
-          Browse each country for a concise overview and practical highlights.
-          This first version keeps the experience simple and focused.
+        <p className="mb-0 max-w-2xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
+          Browse each country for a concise overview, cities explored, and a
+          clear starting point for your own itinerary.
         </p>
-      </section>
+      </header>
 
-      <section className="mt-12">
+      <div className="mt-16 border-t border-neutral-200/60 pt-12">
+        <div className="mb-8">
+          <h2 className="mb-2 text-2xl font-semibold tracking-tight text-[var(--color-text-primary)]">
+            Browse by Country
+          </h2>
+          <p className="text-sm text-[var(--color-text-muted)]">
+            Curated notes from places I have explored.
+          </p>
+        </div>
         <CountryGrid countries={countries} />
-      </section>
+      </div>
     </div>
   );
 }

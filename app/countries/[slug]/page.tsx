@@ -29,8 +29,22 @@ export default async function CountryDetailPage({
       <div className="space-y-6">
         <Link
           href="/countries"
-          className="inline-block text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-signature)]"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-signature)]"
         >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 20 20"
+            className="h-4 w-4"
+            fill="none"
+          >
+            <path
+              d="M11.75 4.75L6.5 10l5.25 5.25"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           Back to countries
         </Link>
 
@@ -45,30 +59,20 @@ export default async function CountryDetailPage({
           <p className="max-w-3xl text-base leading-8 text-[var(--color-text-muted)] md:text-lg">
             {country.shortDescription}
           </p>
-          <ul className="flex flex-wrap gap-2 pt-1">
-            {country.travelStyles.map((style) => (
-              <li
-                key={style}
-                className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs capitalize tracking-wide text-[var(--color-text-muted)]"
-              >
-                {style}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
 
-      <section className="mt-10 overflow-hidden rounded-2xl border border-[var(--color-border)]">
-        <div className="relative h-72 border-b border-[var(--color-border)] bg-[var(--color-accent-soft)] md:h-96">
+      <section className="mt-14 space-y-10 md:mt-16">
+        <div className="relative h-64 overflow-hidden rounded-3xl bg-[var(--color-accent-soft)] shadow-[0_16px_44px_rgba(34,26,52,0.1)] md:h-80">
           <Image
             src={country.heroImage}
             alt={`${country.name} hero`}
             fill
-            className="object-cover p-16 opacity-70"
+            className="object-cover p-12 opacity-75 md:p-16"
             priority
           />
         </div>
-        <div className="space-y-6 p-8 md:p-10">
+        <div className="space-y-6">
           <h2 className="text-2xl font-medium tracking-tight text-[var(--color-text-primary)]">
             Highlights
           </h2>

@@ -12,11 +12,11 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-[var(--color-border)] bg-[var(--color-bg)]">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 md:px-10">
+    <header className="bg-[var(--color-bg)]">
+      <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-3 md:px-10">
         <Link
           href="/"
-          className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-primary)]"
+          className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-text-primary)]"
         >
           Taylor Travels
         </Link>

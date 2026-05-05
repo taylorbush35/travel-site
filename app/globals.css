@@ -35,7 +35,13 @@ html {
 }
 
 body {
-  background: var(--color-bg);
+  /* Soft top wash so the page feels like one surface (portfolio-style) */
+  background: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      rgba(255, 255, 255, 0.55) 0%,
+      transparent 55%
+    ),
+    var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   line-height: 1.5;
