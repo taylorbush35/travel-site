@@ -79,3 +79,21 @@ button:focus-visible {
   background: var(--color-signature-soft);
   color: var(--color-text-primary);
 }
+
+@keyframes flight-path-reveal {
+  to {
+    opacity: 1;
+  }
+}
+
+.flight-path-reveal {
+  opacity: 0;
+  animation: flight-path-reveal 1.35s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flight-path-reveal {
+    animation: none;
+    opacity: 1;
+  }
+}

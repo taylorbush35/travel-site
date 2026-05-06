@@ -207,7 +207,12 @@ export function getAllCountries(): Country[] {
 }
 
 export function getFeaturedCountries(): Country[] {
-  return countries.filter((country) => country.featured);
+  const featuredOrder = ["finland", "italy", "vietnam"] as const;
+  const featuredBySlug = new Map(countries.map((country) => [country.slug, country]));
+
+  return featuredOrder
+    .map((slug) => featuredBySlug.get(slug))
+    .filter((country): country is Country => Boolean(country));
 }
 
 export function getCountryBySlug(slug: string): Country | undefined {
