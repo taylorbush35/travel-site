@@ -23,6 +23,7 @@ export const countries: Country[] = [
       "Balance two bases with day trips instead of packing the whole map.",
     ],
     featured: true,
+    isComingSoon: true,
   },
   {
     slug: "italy",
@@ -39,6 +40,7 @@ export const countries: Country[] = [
       "Pack layers: churches and shoulder seasons can feel cool indoors.",
     ],
     featured: true,
+    isComingSoon: true,
   },
   {
     slug: "spain",
@@ -55,6 +57,7 @@ export const countries: Country[] = [
       "Add a day trip to Montserrat or the coast if you want contrast.",
     ],
     featured: true,
+    isComingSoon: true,
   },
   {
     slug: "france",
@@ -71,6 +74,7 @@ export const countries: Country[] = [
       "Beach clubs charge for loungers — bring a towel for public stretches.",
     ],
     featured: true,
+    isComingSoon: true,
   },
   {
     slug: "england",
@@ -87,6 +91,7 @@ export const countries: Country[] = [
       "Queue culture is real; build buffer time at popular free museums.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "ireland",
@@ -103,6 +108,7 @@ export const countries: Country[] = [
       "Pub sessions start late; plan dinners accordingly.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "scotland",
@@ -119,13 +125,15 @@ export const countries: Country[] = [
       "Midges appear in damp summer evenings — repellent helps.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "denmark",
     name: "Denmark",
     region: "Europe",
     cities: ["Copenhagen"],
-    ...pickImage(3),
+    heroImage: "/images/denmark.jpeg",
+    cardImage: "/images/denmark.jpeg",
     travelStyles: ["solo", "couple"],
     shortDescription:
       "Bikes, design shops, harbour swims, and hygge in a walkable Scandinavian capital.",
@@ -135,6 +143,7 @@ export const countries: Country[] = [
       "Day-trip to Helsingør or Malmö if you want a change of scene.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "sweden",
@@ -151,22 +160,25 @@ export const countries: Country[] = [
       "Midsummer and holidays can empty the city; plan groceries if self-catering.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "finland",
     name: "Finland",
     region: "Europe",
     cities: ["Helsinki"],
-    ...pickImage(1),
+    heroImage: "/images/helsinki%20water.jpeg",
+    cardImage: "/images/helsinki%20water.jpeg",
     travelStyles: ["solo", "couple"],
     shortDescription:
-      "Design, sea-facing saunas, and trams to islands when the light stays long.",
+      "Design, sea-facing saunas, trams to islands, and quiet moments that sneak up on you.",
     highlights: [
-      "Sauna culture is serious — book a slot and bring a towel.",
-      "Summer days are long; winter is dark early — plan indoor backups.",
-      "Ferries to Tallinn make an easy day or overnight hop.",
+      "Do one practice tram ride — after that, the city feels very manageable.",
+      "Book sauna ahead and pack a swimsuit; waterfront sauna spots are part of the rhythm.",
+      "Train from the airport to the city center is straightforward — skim the route before you land.",
     ],
     featured: false,
+    isComingSoon: false,
   },
   {
     slug: "costa-rica",
@@ -183,6 +195,7 @@ export const countries: Country[] = [
       "Wildlife is best at dawn and dusk — plan one slow nature morning.",
     ],
     featured: false,
+    isComingSoon: true,
   },
   {
     slug: "turks-and-caicos",
@@ -199,6 +212,7 @@ export const countries: Country[] = [
       "Hurricane season runs late summer into fall — watch forecasts if booking then.",
     ],
     featured: false,
+    isComingSoon: true,
   },
 ];
 

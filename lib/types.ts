@@ -14,4 +14,6 @@ export type Country = {
   shortDescription: string;
   highlights: string[];
   featured: boolean;
+  /** When true, guide page shows full layout blurred with a coming-soon overlay (Finland is live). */
+  isComingSoon: boolean;
 };

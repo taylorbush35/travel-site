@@ -8,7 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function CountriesPage() {
-  const countries = getAllCountries();
+  const countries = [...getAllCountries()].sort((a, b) =>
+    a.name.localeCompare(b.name, "en", { sensitivity: "base" }),
+  );
 
   return (
     <div className="mx-auto w-full max-w-5xl px-6 pb-16 pt-20 md:px-10 md:pb-20 md:pt-28">
