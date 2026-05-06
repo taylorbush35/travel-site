@@ -48,6 +48,26 @@ export function FlightPathBackground() {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMin meet"
       >
+        <path
+          className="hidden lg:block"
+          d="M -10 52 C -44 122, -50 238, -24 352 C 4 480, -62 640, -34 788 C -4 960, -70 1140, -36 1312 C -2 1492, -66 1680, -30 1864 C 4 2048, -58 2240, -26 2428 C 4 2616, -52 2808, -22 3000 C 4 3170, -40 3342, -26 3600"
+          stroke="rgba(0, 0, 0, 0.32)"
+          strokeWidth="1.5"
+          strokeDasharray="3 8"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          fill="none"
+        />
+        <path
+          className="hidden lg:block"
+          d="M 986 52 C 1042 120, 1068 232, 1032 344 C 996 466, 1068 624, 1030 778 C 992 940, 1064 1110, 1026 1278 C 990 1450, 1060 1622, 1024 1796 C 992 1974, 1058 2156, 1026 2342 C 996 2530, 1058 2726, 1030 2922 C 1006 3098, 1060 3282, 1038 3600"
+          stroke="rgba(0, 0, 0, 0.32)"
+          strokeWidth="1.5"
+          strokeDasharray="3 8"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          fill="none"
+        />
         <g transform="translate(95 0)">
           <path
             d={mainJourney}
