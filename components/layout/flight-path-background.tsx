@@ -1,94 +1,89 @@
 /**
- * Full-page flight route: hero → Finland featured zone → continuation → bottom curl.
- * Single main path reads as one journey; right ribbon parallels in the margin.
+ * Full-page flight routes with real loops and lateral sweeps.
+ * Motif is tiled vertically and scaled with slice so curves stay round
+ * while still covering the whole layout.
  */
 export function FlightPathBackground() {
-  const strokeMain = "rgba(31, 29, 27, 0.16)";
+  const strokeMain = "rgba(31, 29, 27, 0.18)";
   const strokeAccent = "rgba(31, 29, 27, 0.12)";
-  const planeBody = "rgba(31, 29, 27, 0.30)";
-  const planeWing = "rgba(31, 29, 27, 0.25)";
+  const strokeSoft = "rgba(31, 29, 27, 0.09)";
+  const planeBody = "rgba(31, 29, 27, 0.32)";
+  const planeWing = "rgba(31, 29, 27, 0.26)";
 
   const dash = {
     strokeLinecap: "round" as const,
-    strokeDasharray: "2 6",
+    strokeDasharray: "2 7",
     vectorEffect: "non-scaling-stroke" as const,
   };
 
-  /* Finland approach: left column, slightly inward toward featured card */
-  const px = 262;
-  const py = 1418;
-
-  /* One path: hero → featured band → Finland → right rail → smooth exit beyond footer */
-  const mainJourney = [
-    "M 44 40",
-    "C 158 108, 278 218, 208 338",
-    "C 128 468, 78 598, 165 758",
-    "C 232 918, 198 1048, 178 1178",
-    "C 152 1310, 175 1372, 218 1402",
-    "C 238 1414, 252 1418, 262 1418",
-    /* Leave Finland zone toward the right margin (Vietnam column), not back under the large card */
-    "C 278 1505, 322 1705, 362 1925",
-    "C 392 2145, 408 2385, 422 2605",
-    "C 438 2785, 498 2915, 598 2975",
-    /* Bottom flow: broad, gentle sweep that exits off the page bottom-right */
-    "C 648 3025, 702 3220, 760 3335",
-    "C 842 3402, 930 3456, 986 3530",
-    "C 1024 3582, 1044 3638, 1062 3695",
+  /* One wandering segment (~900 tall) with a clear loop + full-width travel */
+  const segment = [
+    "M -40 40",
+    "C 160 10, 340 90, 520 50",
+    "C 740 0, 980 80, 920 220",
+    /* Pronounced loop */
+    "C 860 340, 620 380, 480 280",
+    "C 320 160, 280 360, 460 420",
+    "C 680 500, 980 440, 940 620",
+    "C 890 820, 560 740, 320 820",
+    "C 80 900, -60 1040, 140 1120",
+    "C 360 1210, 720 1120, 900 1240",
+    "C 1080 1360, 820 1480, 560 1440",
   ].join(" ");
+
+  const accent = [
+    "M 1040 20",
+    "C 820 70, 540 -20, 300 90",
+    "C 80 200, -80 360, 100 480",
+    "C 280 600, 620 520, 800 640",
+    /* Counter-loop */
+    "C 980 760, 860 980, 600 1020",
+    "C 280 1070, 80 880, 140 700",
+    "C 200 520, 480 620, 520 860",
+    "C 560 1120, 200 1220, 60 1400",
+  ].join(" ");
+
+  const soft = [
+    "M 60 -30",
+    "C 40 180, 260 300, 520 240",
+    "C 840 160, 1100 360, 960 560",
+    "C 800 800, 240 720, 80 960",
+    "C -60 1220, 260 1380, 560 1300",
+    "C 900 1200, 1120 1480, 880 1600",
+  ].join(" ");
+
+  const tiles = [0, 900, 1800, 2700];
 
   return (
     <div
-      className="flight-path-reveal pointer-events-none absolute inset-0 z-0 hidden min-h-full w-full overflow-visible md:block"
+      className="flight-path-reveal pointer-events-none absolute inset-0 z-0 hidden min-h-full w-full overflow-hidden md:block"
       aria-hidden
     >
       <svg
-        className="absolute inset-0 h-full w-full min-h-full overflow-visible"
+        className="absolute inset-0 h-full w-full min-h-full"
         viewBox="0 0 1000 3600"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMin meet"
+        preserveAspectRatio="xMidYMin slice"
       >
-        <path
-          className="hidden lg:block"
-          d="M -10 52 C -44 122, -50 238, -24 352 C 4 480, -62 640, -34 788 C -4 960, -70 1140, -36 1312 C -2 1492, -66 1680, -30 1864 C 4 2048, -58 2240, -26 2428 C 4 2616, -52 2808, -22 3000 C 4 3170, -40 3342, -26 3600"
-          stroke="rgba(0, 0, 0, 0.32)"
-          strokeWidth="1.5"
-          strokeDasharray="3 8"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          fill="none"
-        />
-        <path
-          className="hidden lg:block"
-          d="M 986 52 C 1042 120, 1068 232, 1032 344 C 996 466, 1068 624, 1030 778 C 992 940, 1064 1110, 1026 1278 C 990 1450, 1060 1622, 1024 1796 C 992 1974, 1058 2156, 1026 2342 C 996 2530, 1058 2726, 1030 2922 C 1006 3098, 1060 3282, 1038 3600"
-          stroke="rgba(0, 0, 0, 0.32)"
-          strokeWidth="1.5"
-          strokeDasharray="3 8"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          fill="none"
-        />
-        <g transform="translate(95 0)">
-          <path
-            d={mainJourney}
-            stroke={strokeMain}
-            strokeWidth="1.6"
-            {...dash}
-          />
-
-          <g transform={`translate(${px}, ${py}) rotate(17) scale(1.95)`}>
-            <path d="M -8 0 L 18 -3.6 L 18 3.6 Z" fill={planeBody} />
-            <path d="M 0 -1.2 L 12.5 -7.8 L 12.5 7.8 Z" fill={planeWing} />
+        {tiles.map((offset, index) => (
+          <g
+            key={offset}
+            transform={
+              index % 2 === 0
+                ? `translate(0 ${offset})`
+                : `translate(1000 ${offset}) scale(-1 1)`
+            }
+          >
+            <path d={soft} stroke={strokeSoft} strokeWidth="1.4" {...dash} />
+            <path d={accent} stroke={strokeAccent} strokeWidth="1.5" {...dash} />
+            <path d={segment} stroke={strokeMain} strokeWidth="1.7" {...dash} />
           </g>
+        ))}
 
-          <g className="hidden lg:block">
-            <path
-              d="M 938 95 C 895 455, 978 905, 922 1445 C 872 2085, 925 2655, 900 3275 C 928 3410, 962 3525, 1004 3610"
-              stroke={strokeAccent}
-              strokeWidth="1.6"
-              {...dash}
-            />
-          </g>
+        <g transform="translate(720 260) rotate(-18) scale(2.1)">
+          <path d="M -8 0 L 18 -3.6 L 18 3.6 Z" fill={planeBody} />
+          <path d="M 0 -1.2 L 12.5 -7.8 L 12.5 7.8 Z" fill={planeWing} />
         </g>
       </svg>
     </div>
