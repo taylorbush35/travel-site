@@ -28,6 +28,8 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-instrument-serif);
+  --font-hand: var(--font-caveat);
 }
 
 html {
@@ -96,4 +98,25 @@ button:focus-visible {
     animation: none;
     opacity: 1;
   }
+}
+
+.countries-map-edge {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 9rem;
+  opacity: 0.22;
+  background:
+    radial-gradient(
+      ellipse 80% 90% at 18% 110%,
+      rgba(91, 58, 142, 0.16),
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 70% 80% at 78% 120%,
+      rgba(91, 58, 142, 0.1),
+      transparent 60%
+    );
+  mask-image: linear-gradient(to top, black 18%, transparent 88%);
 }

@@ -10,6 +10,8 @@ export type Country = {
   cities: string[];
   heroImage: string;
   cardImage: string;
+  /** Extra destination photos for the guide — omitted when not available */
+  galleryImages?: string[];
   travelStyles: TravelStyle[];
   shortDescription: string;
   highlights: string[];

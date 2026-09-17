@@ -5,18 +5,21 @@ export type FoodEntry = {
   /** Neighborhood or area — optional */
   area?: string;
   note: string;
+  /** Optional photo for carousel cards */
+  image?: string;
 };
 
 export type NeighborhoodEntry = {
   name: string;
   vibe: string;
-  bestFor: string;
 };
 
 export type ShoppingEntry = {
   name: string;
   category: string;
   note: string;
+  /** Optional photo for carousel cards */
+  image?: string;
 };
 
 export type CountryGuideSections = {

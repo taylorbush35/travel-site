@@ -82,7 +82,6 @@ export function CountryGuideNav() {
 
   return (
     <>
-      {/* When this leaves the viewport, the sticky nav is pinned */}
       <div
         ref={stuckSentinelRef}
         className="pointer-events-none h-px w-full shrink-0"
@@ -91,27 +90,26 @@ export function CountryGuideNav() {
       <nav
         aria-label="On this page"
         className={[
-          "sticky top-3 z-20 mb-10 md:top-5 md:mb-12",
+          "sticky top-2 z-20 mb-8 md:top-3 md:mb-10",
           "transition-[opacity,transform] duration-500 ease-out",
           revealed ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0",
         ].join(" ")}
       >
         <div
           className={[
-            "rounded-2xl border px-3 py-3 backdrop-blur-xl md:px-4 md:py-3.5",
-            "transition-[background-color,box-shadow,backdrop-filter,border-color] duration-300 ease-out",
-            /* Warm charcoal — darker than page canvas (#faf9f7), still soft */
-            "border-white/[0.1] bg-[rgba(44,41,38,0.94)] shadow-[0_12px_36px_rgba(0,0,0,0.2)]",
+            "flex items-center gap-2 overflow-hidden rounded-xl px-2 py-1.5 md:gap-3 md:px-3 md:py-1.5",
+            "bg-[rgba(40,37,34,0.94)] shadow-[0_8px_22px_rgba(31,29,27,0.14)]",
+            "transition-[box-shadow,background-color] duration-300 ease-out",
             isStuck
-              ? "border-white/[0.12] bg-[rgba(36,33,31,0.96)] shadow-[0_18px_50px_rgba(0,0,0,0.26)] backdrop-blur-2xl"
+              ? "bg-[rgba(34,32,29,0.96)] shadow-[0_10px_28px_rgba(31,29,27,0.2)]"
               : "",
           ].join(" ")}
         >
-          <p className="mb-2.5 px-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#a39d96]">
+          <p className="hidden shrink-0 px-1.5 text-[9px] font-medium uppercase tracking-[0.18em] text-[#9c968e] md:block">
             On this page
           </p>
-          <div className="-mx-1 overflow-x-auto px-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:overflow-visible [&::-webkit-scrollbar]:hidden">
-            <ul className="flex w-max min-w-full flex-nowrap gap-1 sm:w-auto sm:flex-wrap sm:gap-x-1 sm:gap-y-2">
+          <div className="min-w-0 flex-1 overflow-x-auto md:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <ul className="flex w-max gap-0.5 md:w-auto md:flex-wrap">
               {COUNTRY_GUIDE_NAV_ITEMS.map(({ id, label }) => {
                 const active = activeId === id;
                 return (
@@ -120,31 +118,14 @@ export function CountryGuideNav() {
                       type="button"
                       onClick={() => scrollToSection(id)}
                       className={[
-                        "flex items-center gap-2 rounded-full px-3 py-2 text-left text-[10px] uppercase tracking-[0.14em] sm:py-1.5 sm:text-[11px]",
-                        "transition-[color,background-color,transform,box-shadow,font-weight] duration-200 ease-out",
-                        "motion-reduce:transition-colors motion-reduce:hover:translate-y-0",
+                        "whitespace-nowrap rounded-full px-2.5 py-1.5 text-[10px] uppercase tracking-[0.12em] md:px-3 md:text-[10px]",
+                        "transition-colors duration-200 ease-out",
                         active
-                          ? [
-                              "bg-[rgba(235,228,244,0.22)] font-semibold text-[#f2ecf8]",
-                              "shadow-[inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-1px_0_rgba(0,0,0,0.22)]",
-                              "ring-1 ring-inset ring-[rgba(200,180,235,0.35)]",
-                            ].join(" ")
-                          : [
-                              "font-medium text-[#c9c3bb]",
-                              "hover:translate-y-[-2px] hover:bg-white/[0.08] hover:text-[#f5f4f2]",
-                            ].join(" "),
+                          ? "bg-[rgba(235,228,244,0.2)] font-medium text-[#f3edf8]"
+                          : "font-medium text-[#c5bfb7] hover:bg-white/[0.06] hover:text-[#f5f4f2]",
                       ].join(" ")}
                     >
-                      <span
-                        className={[
-                          "h-1 w-1 shrink-0 rounded-full transition-colors duration-200",
-                          active
-                            ? "bg-[#c9b8e8] shadow-[0_0_0_1px_rgba(200,180,235,0.45)]"
-                            : "bg-white/35",
-                        ].join(" ")}
-                        aria-hidden
-                      />
-                      <span className="whitespace-nowrap">{label}</span>
+                      {label}
                     </button>
                   </li>
                 );
