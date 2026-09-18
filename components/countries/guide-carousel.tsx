@@ -15,7 +15,7 @@ export type GuideCarouselItem = {
 type GuideCarouselProps = {
   label: string;
   items: GuideCarouselItem[];
-  variant?: "split" | "stack" | "cover";
+  variant?: "split" | "stack" | "cover" | "peek";
 };
 
 const WIDTH: Record<NonNullable<GuideCarouselProps["variant"]>, string> = {
@@ -25,6 +25,7 @@ const WIDTH: Record<NonNullable<GuideCarouselProps["variant"]>, string> = {
     "w-[min(100%,calc(100%-2.25rem))] md:w-[min(19.5rem,calc(42%-0.5rem))]",
   cover:
     "w-[min(100%,calc(100%-2.25rem))] md:w-[min(21rem,calc(44%-0.5rem))]",
+  peek: "w-[calc((100%-0.4rem)/1.1)] md:w-[calc((100%-1rem)/1.65)] lg:w-[calc((100%-2rem)/2.25)]",
 };
 
 export function GuideCarousel({
@@ -59,21 +60,23 @@ export function GuideCarousel({
     const el = scrollerRef.current;
     if (!el) return;
 
-    const slides = Array.from(el.children);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        const nextIndex = slides.indexOf(visible.target);
-        if (nextIndex >= 0) setIndex(nextIndex);
-      },
-      { root: el, threshold: 0.55 },
-    );
+    const updateFromScroll = () => {
+      const slides = Array.from(el.children) as HTMLElement[];
+      if (slides.length === 0) return;
+      let closest = 0;
+      let min = Number.POSITIVE_INFINITY;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - el.scrollLeft);
+        if (dist < min) {
+          min = dist;
+          closest = i;
+        }
+      });
+      setIndex(closest);
+    };
 
-    slides.forEach((slide) => observer.observe(slide));
-    return () => observer.disconnect();
+    el.addEventListener("scroll", updateFromScroll, { passive: true });
+    return () => el.removeEventListener("scroll", updateFromScroll);
   }, [items.length]);
 
   if (total === 0) return null;
@@ -157,12 +160,16 @@ function CarouselCard({
   variant: NonNullable<GuideCarouselProps["variant"]>;
 }) {
   const photo = item.image && hasPhotographicAsset(item.image) ? item.image : null;
+  const imageLed = variant === "peek" || variant === "stack";
+
   const copy = (
     <div
       className={
         variant === "split"
           ? "flex min-h-0 flex-1 flex-col justify-center px-6 py-6 md:w-[45%] md:px-7 md:py-8"
-          : "flex flex-1 flex-col px-5 pb-6 pt-5 md:px-6"
+          : imageLed
+            ? `flex flex-1 flex-col px-5 ${photo ? "py-4" : "py-5"} md:px-5`
+            : "flex flex-1 flex-col px-5 pb-6 pt-5 md:px-6"
       }
     >
       <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
@@ -170,19 +177,26 @@ function CarouselCard({
       </p>
       <h3
         className={[
-          "mt-3 font-display tracking-tight text-[var(--color-text-primary)]",
-          variant === "cover"
-            ? "text-[1.35rem] leading-[1.25] md:text-[1.45rem]"
-            : "text-[1.45rem] leading-[1.2] md:text-[1.6rem]",
+          "mt-2 font-display tracking-tight text-[var(--color-text-primary)]",
+          variant === "peek"
+            ? "text-[1.25rem] leading-[1.25] md:text-[1.35rem]"
+            : variant === "cover"
+              ? "mt-3 text-[1.35rem] leading-[1.25] md:text-[1.45rem]"
+              : "mt-3 text-[1.45rem] leading-[1.2] md:text-[1.6rem]",
         ].join(" ")}
       >
         {item.title}
       </h3>
       {item.meta ? (
-        <p className="mt-2 text-sm leading-relaxed text-[#8a827a]">{item.meta}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-[#8a827a]">{item.meta}</p>
       ) : null}
       {item.body ? (
-        <p className="mt-4 text-[0.925rem] leading-[1.75] text-[var(--color-text-muted)]">
+        <p
+          className={[
+            "text-[0.925rem] leading-[1.7] text-[var(--color-text-muted)]",
+            variant === "peek" ? "mt-2.5" : "mt-4 leading-[1.75]",
+          ].join(" ")}
+        >
           {item.body}
         </p>
       ) : null}
@@ -192,7 +206,7 @@ function CarouselCard({
   return (
     <article
       className={[
-        "flex h-full overflow-hidden rounded-[1.2rem] border border-[rgba(31,29,27,0.08)] bg-[var(--color-surface)]",
+        "flex h-full overflow-hidden rounded-[1.15rem] border border-[rgba(31,29,27,0.08)] bg-[var(--color-surface)]",
         variant === "split" ? "flex-col md:min-h-[18.5rem] md:flex-row" : "flex-col",
       ].join(" ")}
     >
@@ -201,7 +215,9 @@ function CarouselCard({
           className={
             variant === "split"
               ? "relative aspect-[5/4] w-full md:aspect-auto md:w-[55%] md:self-stretch"
-              : "relative aspect-[4/3] w-full"
+              : variant === "peek"
+                ? "relative aspect-[5/4] w-full"
+                : "relative aspect-[4/3] w-full"
           }
         >
           <Image
@@ -209,7 +225,7 @@ function CarouselCard({
             alt=""
             fill
             className="object-cover"
-            sizes="(min-width: 768px) 22rem, 90vw"
+            sizes="(min-width: 1024px) 22rem, (min-width: 768px) 40vw, 90vw"
           />
         </div>
       ) : variant === "cover" ? (
@@ -218,6 +234,11 @@ function CarouselCard({
             {item.kicker}
           </span>
         </div>
+      ) : variant === "peek" ? (
+        <div
+          className="mx-5 mt-5 h-px w-10 bg-[var(--color-signature)]/35"
+          aria-hidden
+        />
       ) : null}
       {copy}
     </article>

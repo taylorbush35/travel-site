@@ -4,11 +4,11 @@
  * while still covering the whole layout.
  */
 export function FlightPathBackground() {
-  const strokeMain = "rgba(31, 29, 27, 0.18)";
-  const strokeAccent = "rgba(31, 29, 27, 0.12)";
-  const strokeSoft = "rgba(31, 29, 27, 0.09)";
-  const planeBody = "rgba(31, 29, 27, 0.32)";
-  const planeWing = "rgba(31, 29, 27, 0.26)";
+  const strokeMain = "rgba(31, 29, 27, 0.09)";
+  const strokeAccent = "rgba(31, 29, 27, 0.06)";
+  const strokeSoft = "rgba(31, 29, 27, 0.045)";
+  const planeBody = "rgba(31, 29, 27, 0.16)";
+  const planeWing = "rgba(31, 29, 27, 0.12)";
 
   const dash = {
     strokeLinecap: "round" as const,

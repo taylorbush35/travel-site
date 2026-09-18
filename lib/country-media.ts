@@ -20,6 +20,30 @@ export function getCountryPhotos(country: Country): string[] {
   return photos;
 }
 
+export function getGuidePhotography(country: Country) {
+  const photos = getCountryPhotos(country);
+  return {
+    photos,
+    hero: photos[0],
+    neighborhood: photos[1] ?? photos[0],
+    closing: photos.length > 1 ? photos[photos.length - 1] : photos[0],
+  };
+}
+
+export function photosForCount(
+  photos: string[],
+  count: number,
+): Array<string | undefined> {
+  return Array.from({ length: count }, (_, i) => photos[i]);
+}
+
+export function splitLeadSentence(text: string): { lead: string; rest: string } {
+  const trimmed = text.trim();
+  const match = trimmed.match(/^(.+?[.!?])(?:\s+([\s\S]*))?$/);
+  if (!match) return { lead: trimmed, rest: "" };
+  return { lead: match[1], rest: (match[2] ?? "").trim() };
+}
+
 export type HeroFact = {
   icon: "calendar" | "climate" | "transit" | "pin";
   label: string;

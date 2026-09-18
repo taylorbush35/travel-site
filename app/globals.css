@@ -23,6 +23,8 @@
   --color-signature-strong: #472a6b;
   --color-signature-soft: #ebe4f4;
   --color-signature-ink: #3d265f;
+  --color-guide-cream: #f6f0e8;
+  --color-guide-warm: #f4ece3;
 }
 
 @theme inline {

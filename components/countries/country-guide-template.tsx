@@ -6,18 +6,19 @@ import type { CountryGuideSections, FoodEntry } from "@/lib/country-guide-types"
 import { CountryGuideNav } from "@/components/countries/country-guide-nav";
 import { CountryCityTags } from "@/components/countries/country-city-tags";
 import { GuideCarousel } from "@/components/countries/guide-carousel";
-import type { GuideCarouselItem } from "@/components/countries/guide-carousel";
+import { ActivityFeatureGrid } from "@/components/countries/activity-feature-grid";
+import { ShoppingBoard } from "@/components/countries/shopping-board";
 import {
   AirplaneMark,
   HeroFactIcon,
-  MapLineMark,
   PassportStamp,
   SuitcaseMark,
   WeatherIcon,
 } from "@/components/countries/guide-art";
 import {
-  getCountryPhotos,
+  getGuidePhotography,
   getHeroFacts,
+  splitLeadSentence,
   weatherGlyph,
 } from "@/lib/country-media";
 
@@ -36,7 +37,7 @@ function GuideSectionTitle({
   accessory?: ReactNode;
 }) {
   return (
-    <header className="mb-8 flex items-start justify-between gap-6 md:mb-11">
+    <header className="mb-8 flex items-start justify-between gap-6 md:mb-10">
       <div>
         {eyebrow ? (
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#A39B95]">
@@ -80,7 +81,7 @@ function BackToCountriesLink({ className }: { className?: string }) {
   );
 }
 
-function foodItems(guide: CountryGuideSections): GuideCarouselItem[] {
+function foodItems(guide: CountryGuideSections) {
   const groups: Array<[string, FoodEntry[]]> = [
     ["Coffee/Breakfast", guide.foodDrink.coffee],
     ["Miscellaneous", guide.foodDrink.casual],
@@ -99,20 +100,35 @@ function foodItems(guide: CountryGuideSections): GuideCarouselItem[] {
   );
 }
 
-function shoppingItems(guide: CountryGuideSections): GuideCarouselItem[] {
-  return guide.shopping.map((entry) => ({
-    kicker: entry.category,
-    title: entry.name,
-    body: entry.note,
-    image: entry.image,
-  }));
-}
+function GuideSection({
+  id,
+  wash,
+  children,
+}: {
+  id: string;
+  wash?: "cream" | "lavender" | "warm";
+  children: ReactNode;
+}) {
+  const washClass =
+    wash === "cream"
+      ? "bg-[var(--color-guide-cream)]/80"
+      : wash === "lavender"
+        ? "bg-[rgba(91,58,142,0.035)]"
+        : wash === "warm"
+          ? "bg-[var(--color-guide-warm)]/75"
+          : "";
 
-function thingsToDoItems(guide: CountryGuideSections): GuideCarouselItem[] {
-  return guide.thingsToDo.mustDo.map((item, i) => ({
-    kicker: String(i + 1).padStart(2, "0"),
-    title: item,
-  }));
+  return (
+    <section id={id} className="relative scroll-mt-24 py-10 md:py-12 lg:py-14">
+      {washClass ? (
+        <div
+          className={`pointer-events-none absolute inset-y-0 -left-6 -right-6 -z-10 md:-left-10 md:-right-10 ${washClass}`}
+          aria-hidden
+        />
+      ) : null}
+      {children}
+    </section>
+  );
 }
 
 const LOGISTICS_NOTES = [
@@ -130,10 +146,13 @@ export function CountryGuideTemplate({
   const comingSoon = country.isComingSoon;
   const whyParagraphs = guide.whyILovedIt.split("\n\n");
   const [whyLead, ...whyRest] = whyParagraphs;
-  const photos = getCountryPhotos(country);
-  const heroPhoto = photos[0];
+  const photos = getGuidePhotography(country);
+  const heroPhoto = photos.hero;
+  const neighborhoodPhoto = photos.neighborhood;
+  const closingPhoto = photos.closing;
   const facts = getHeroFacts(country, guide);
   const annotationCities = country.cities.slice(0, 3);
+  const closingCopy = splitLeadSentence(guide.finalThoughts.closing);
 
   const guideMain = (
     <>
@@ -208,7 +227,7 @@ export function CountryGuideTemplate({
         </div>
 
         {facts.length > 0 ? (
-          <ul className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 sm:mt-12 lg:mt-14 lg:grid-cols-4 lg:gap-x-8">
+          <ul className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 sm:mt-12 lg:mt-14 lg:grid-cols-4 lg:gap-x-10">
             {facts.map((fact) => (
               <li key={fact.label} className="min-w-0">
                 <span className="flex h-8 w-8 items-center text-[var(--color-text-primary)]">
@@ -217,7 +236,7 @@ export function CountryGuideTemplate({
                     className="h-[1.15rem] w-[1.15rem]"
                   />
                 </span>
-                <p className="mt-2.5 whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--color-text-primary)]">
+                <p className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--color-text-primary)]">
                   {fact.label}
                 </p>
                 <p className="mt-1 text-[13px] leading-snug text-[#8a827a]">
@@ -229,74 +248,102 @@ export function CountryGuideTemplate({
         ) : null}
       </header>
 
-      <div className="mt-20 space-y-24 md:mt-28 md:space-y-32">
-        <section id="why-i-loved-it" className="scroll-mt-24">
+      <div className="mt-16 md:mt-20">
+        <GuideSection id="why-i-loved-it">
           <GuideSectionTitle eyebrow="Quick take" title="Why I loved it" />
-          <div className="relative">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -left-1 -top-8 select-none font-display text-[6.5rem] leading-none text-[rgba(91,58,142,0.16)] md:-left-3 md:-top-10 md:text-[8rem]"
-            >
-              “
-            </span>
+          <div className="relative max-w-3xl">
             {whyLead ? (
-              <p className="relative max-w-2xl border-l-2 border-[rgba(91,58,142,0.28)] pl-5 font-display text-[1.45rem] leading-[1.35] tracking-tight text-[var(--color-text-primary)] md:pl-7 md:text-[1.85rem] md:leading-[1.32]">
-                {whyLead}
-              </p>
+              <>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -left-1 -top-8 select-none font-display text-[6.5rem] leading-none text-[rgba(91,58,142,0.16)] md:-left-3 md:-top-10 md:text-[8rem]"
+                >
+                  “
+                </span>
+                <p className="relative border-l-2 border-[rgba(91,58,142,0.28)] pl-5 font-display text-[1.45rem] leading-[1.35] tracking-tight text-[var(--color-text-primary)] md:pl-7 md:text-[1.85rem] md:leading-[1.32]">
+                  {whyLead}
+                </p>
+              </>
             ) : null}
             {whyRest.length > 0 ? (
-              <div className="mt-8 max-w-xl space-y-5 pl-0 text-base leading-[1.85] text-[var(--color-text-muted)] md:mt-10 md:pl-7 md:text-[1.0625rem]">
+              <div className="mt-8 max-w-xl space-y-5 text-base leading-[1.85] text-[var(--color-text-muted)] md:mt-10 md:text-[1.0625rem]">
                 {whyRest.map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
               </div>
             ) : null}
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="neighborhoods" className="relative scroll-mt-24">
+        <GuideSection id="neighborhoods" wash="cream">
           <GuideSectionTitle
             eyebrow="Areas"
             title="Neighborhoods & pockets worth knowing"
           />
-          <div className="relative">
-            <MapLineMark className="pointer-events-none absolute -right-4 top-6 hidden h-52 w-16 text-[var(--color-signature)] opacity-35 md:block lg:right-0" />
+          <div
+            className={
+              neighborhoodPhoto
+                ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(15rem,0.72fr)] lg:gap-14 xl:gap-16"
+                : "relative"
+            }
+          >
             <ol className="divide-y divide-[rgba(31,29,27,0.08)] border-y border-[rgba(31,29,27,0.08)]">
               {guide.neighborhoods.map((n, i) => (
                 <li
                   key={n.name}
-                  className="grid gap-3 py-8 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-8 sm:py-10"
+                  className="grid gap-2 py-6 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-6 sm:py-7"
                 >
                   <p className="font-mono text-xs tracking-[0.16em] text-[#A39B95]">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <div className="max-w-2xl">
+                  <div>
                     <h3 className="font-display text-[1.45rem] leading-tight tracking-tight text-[var(--color-text-primary)] md:text-[1.65rem]">
                       {n.name}
                     </h3>
-                    <p className="mt-3 text-[0.975rem] leading-[1.8] text-[var(--color-text-muted)]">
+                    <p className="mt-2.5 text-[0.975rem] leading-[1.8] text-[var(--color-text-muted)]">
                       {n.vibe}
                     </p>
                   </div>
                 </li>
               ))}
             </ol>
+            {neighborhoodPhoto ? (
+              <aside className="relative mx-auto w-full max-w-sm lg:sticky lg:top-28 lg:mx-0 lg:max-w-none">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.15rem] bg-[#e8e0d6]">
+                  <Image
+                    src={neighborhoodPhoto}
+                    alt={`A neighborhood view from ${country.name}`}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 22rem, 90vw"
+                  />
+                </div>
+                {country.cities[0] ? (
+                  <p
+                    className="pointer-events-none mt-3 text-right font-hand text-[1.25rem] leading-none text-[var(--color-signature)] lg:absolute lg:-bottom-1 lg:-right-2 lg:mt-0"
+                    aria-hidden
+                  >
+                    {country.cities[0]}
+                  </p>
+                ) : null}
+              </aside>
+            ) : null}
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="things-to-do" className="scroll-mt-24">
+        <GuideSection id="things-to-do">
           <GuideSectionTitle eyebrow="Itinerary" title="Things to do" />
-          <GuideCarousel
-            label="Things to do"
-            variant="cover"
-            items={thingsToDoItems(guide)}
+          <ActivityFeatureGrid
+            items={guide.thingsToDo.mustDo}
+            photos={photos.photos}
+            countryName={country.name}
           />
-          <div className="mt-14 grid gap-10 border-t border-[rgba(31,29,27,0.08)] pt-10 md:mt-16 md:grid-cols-2 md:gap-16 md:pt-12">
+          <div className="mt-10 grid gap-8 border-t border-[rgba(31,29,27,0.08)] pt-8 md:mt-12 md:grid-cols-2 md:gap-14 md:pt-10">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
                 Worth it if…
               </p>
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-3">
                 {guide.thingsToDo.worthItIf.map((item, i) => (
                   <li
                     key={`${i}-${item.slice(0, 24)}`}
@@ -311,7 +358,7 @@ export function CountryGuideTemplate({
               <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
                 Skip / lower priority
               </p>
-              <ul className="mt-5 space-y-4">
+              <ul className="mt-4 space-y-3">
                 {guide.thingsToDo.skipOrLower.map((item, i) => (
                   <li
                     key={`${i}-${item.slice(0, 24)}`}
@@ -323,56 +370,52 @@ export function CountryGuideTemplate({
               </ul>
             </div>
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="food-drink" className="scroll-mt-24">
+        <GuideSection id="food-drink" wash="lavender">
           <GuideSectionTitle eyebrow="Taste" title="Food & drink" />
           <GuideCarousel
             label="Food and drink picks"
-            variant="split"
+            variant="peek"
             items={foodItems(guide)}
           />
-        </section>
+        </GuideSection>
 
-        <section id="shopping" className="scroll-mt-24">
+        <GuideSection id="shopping">
           <GuideSectionTitle eyebrow="Browse" title="Shopping" />
-          <GuideCarousel
-            label="Shopping picks"
-            variant="stack"
-            items={shoppingItems(guide)}
-          />
-        </section>
+          <ShoppingBoard items={guide.shopping} />
+        </GuideSection>
 
-        <section id="logistics" className="scroll-mt-24">
+        <GuideSection id="logistics">
           <GuideSectionTitle eyebrow="Practical" title="Logistics" />
-          <div className="overflow-hidden rounded-[1.5rem] bg-[#f1ebe4] px-6 py-8 md:px-10 md:py-11">
+          <div className="overflow-hidden rounded-[1.25rem] bg-[#f1ebe4] px-5 py-6 md:px-8 md:py-8">
             <dl className="divide-y divide-[rgba(31,29,27,0.08)]">
               {LOGISTICS_NOTES.map(([label, key]) => (
                 <div
                   key={label}
-                  className="grid gap-3 py-7 first:pt-0 last:pb-0 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-10"
+                  className="grid gap-2 py-5 first:pt-0 last:pb-0 md:grid-cols-[10.5rem_minmax(0,1fr)] md:gap-8 md:py-6"
                 >
                   <dt className="text-sm font-medium tracking-tight text-[var(--color-text-primary)]">
                     {label}
                   </dt>
-                  <dd className="text-[0.975rem] leading-[1.8] text-[var(--color-text-muted)]">
+                  <dd className="text-[0.975rem] leading-[1.75] text-[var(--color-text-muted)]">
                     {guide.logistics[key]}
                   </dd>
                 </div>
               ))}
             </dl>
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="weather" className="scroll-mt-24">
+        <GuideSection id="weather">
           <GuideSectionTitle
             eyebrow="Seasons"
             title="Weather & best time to visit"
           />
-          <p className="max-w-3xl font-display text-[1.55rem] leading-[1.3] tracking-tight text-[var(--color-text-primary)] md:text-[2rem] md:leading-[1.28]">
+          <p className="max-w-3xl font-display text-[1.45rem] leading-[1.3] tracking-tight text-[var(--color-text-primary)] md:text-[1.85rem] md:leading-[1.28]">
             {guide.weather.bestMonths}
           </p>
-          <div className="mt-12 grid gap-10 border-t border-[rgba(31,29,27,0.08)] pt-10 md:grid-cols-3 md:gap-12">
+          <div className="mt-8 grid gap-8 border-t border-[rgba(31,29,27,0.08)] pt-8 md:mt-10 md:grid-cols-3 md:gap-10 md:pt-9">
             <WeatherFact
               label="Best months"
               text={guide.weather.bestMonths}
@@ -389,17 +432,17 @@ export function CountryGuideTemplate({
               glyph={weatherGlyph(guide.weather.whatToAvoid)}
             />
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="packing" className="scroll-mt-24">
+        <GuideSection id="packing">
           <GuideSectionTitle
             eyebrow="Bag"
             title="Packing notes"
             accessory={
-              <SuitcaseMark className="mt-3 hidden h-11 w-11 text-[var(--color-signature)] opacity-45 md:block" />
+              <SuitcaseMark className="mt-3 hidden h-10 w-10 text-[var(--color-signature)] opacity-45 md:block" />
             }
           />
-          <div className="space-y-10">
+          <div className="space-y-7">
             <PackingGroup label="Bring" items={guide.packing.bring} tone="bring" />
             <PackingGroup label="Wear" items={guide.packing.wear} tone="wear" />
             <PackingGroup
@@ -408,43 +451,51 @@ export function CountryGuideTemplate({
               tone="skip"
             />
           </div>
-        </section>
+        </GuideSection>
 
-        <section id="final-thoughts" className="scroll-mt-24 pb-4">
+        <GuideSection id="final-thoughts" wash="warm">
           <GuideSectionTitle eyebrow="Closing" title="Final thoughts" />
-          <p className="max-w-3xl font-display text-[1.45rem] leading-[1.35] text-[var(--color-text-primary)] md:text-[1.75rem] md:leading-[1.32]">
-            {guide.finalThoughts.closing}
-          </p>
-          <div className="relative mt-10 max-w-2xl border-l-2 border-[rgba(91,58,142,0.3)] pl-6 md:mt-12 md:pl-8">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -left-2 -top-7 select-none font-display text-[5.5rem] leading-none text-[rgba(91,58,142,0.14)]"
-            >
-              “
-            </span>
-            <p className="relative text-[1.05rem] leading-[1.8] text-[var(--color-text-muted)] md:text-[1.125rem]">
-              {guide.finalThoughts.whoItsFor}
-            </p>
-          </div>
-          {heroPhoto ? (
-            <div className="relative mt-12 aspect-[21/9] w-full overflow-hidden rounded-[1.2rem] md:mt-14">
-              <Image
-                src={heroPhoto}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 56rem, 100vw"
-              />
-              <PassportStamp className="pointer-events-none absolute bottom-4 right-4 hidden h-14 w-14 text-white opacity-80 md:block" />
+          <div
+            className={
+              closingPhoto
+                ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(16rem,0.95fr)] lg:gap-12"
+                : ""
+            }
+          >
+            <div>
+              <p className="max-w-2xl font-display text-[1.45rem] leading-[1.32] text-[var(--color-text-primary)] md:text-[1.75rem] md:leading-[1.3]">
+                {closingCopy.lead}
+              </p>
+              {closingCopy.rest ? (
+                <p className="mt-5 max-w-xl text-[1.02rem] leading-[1.8] text-[var(--color-text-muted)]">
+                  {closingCopy.rest}
+                </p>
+              ) : null}
+              <div className="relative mt-8 max-w-xl border-l-2 border-[rgba(91,58,142,0.3)] pl-5 md:pl-6">
+                <p className="text-[1.02rem] leading-[1.8] text-[var(--color-text-muted)]">
+                  {guide.finalThoughts.whoItsFor}
+                </p>
+              </div>
             </div>
-          ) : null}
-        </section>
+            {closingPhoto ? (
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.15rem] sm:aspect-[5/4] lg:aspect-[4/5]">
+                <Image
+                  src={closingPhoto}
+                  alt={`A last look at ${country.name}`}
+                  fill
+                  className="object-cover object-[center_40%]"
+                  sizes="(min-width: 1024px) 24rem, 100vw"
+                />
+              </div>
+            ) : null}
+          </div>
+        </GuideSection>
       </div>
     </>
   );
 
   return (
-    <article className="mx-auto w-full max-w-5xl px-6 pb-20 pt-14 md:px-10 md:pb-28 md:pt-16">
+    <article className="mx-auto w-full max-w-5xl px-6 pb-16 pt-14 md:px-10 md:pb-24 md:pt-16">
       {!comingSoon ? <CountryGuideNav /> : null}
 
       {comingSoon ? (
@@ -499,12 +550,12 @@ function WeatherFact({
     <div>
       <WeatherIcon
         kind={glyph}
-        className="h-5 w-5 text-[var(--color-signature)]"
+        className="h-[1.15rem] w-[1.15rem] text-[var(--color-signature)]"
       />
-      <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
+      <p className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
         {label}
       </p>
-      <p className="mt-3 text-[0.95rem] leading-[1.75] text-[var(--color-text-muted)]">
+      <p className="mt-2.5 text-[0.95rem] leading-[1.7] text-[var(--color-text-muted)]">
         {text}
       </p>
     </div>
@@ -536,7 +587,7 @@ function PackingGroup({
         {items.map((item) => (
           <li
             key={item}
-            className={`rounded-full border px-3.5 py-2 text-sm leading-snug ${pillClass}`}
+            className={`rounded-full border px-3 py-1.5 text-[13px] leading-snug ${pillClass}`}
           >
             {item}
           </li>
