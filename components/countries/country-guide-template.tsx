@@ -210,7 +210,7 @@ export function CountryGuideTemplate({
               <AirplaneMark className="pointer-events-none absolute -left-3 top-[12%] hidden h-7 w-7 rotate-[-18deg] text-[var(--color-signature)] opacity-70 lg:block" />
               {annotationCities.length > 0 ? (
                 <p
-                  className="pointer-events-none mt-3 hidden text-right font-hand text-[1.3rem] leading-[1.15] text-[var(--color-signature)] md:block lg:absolute lg:-bottom-2 lg:-right-3 lg:mt-0 lg:max-w-[8.5rem]"
+                  className="pointer-events-none mt-3 hidden text-right font-hand text-[1.3rem] leading-[1.15] text-[var(--color-signature)] md:block lg:absolute lg:bottom-10 lg:right-[calc(100%+0.85rem)] lg:mt-0 lg:whitespace-nowrap"
                   aria-hidden
                 >
                   {annotationCities.map((city, i) => (
