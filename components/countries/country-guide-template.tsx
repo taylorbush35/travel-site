@@ -6,21 +6,16 @@ import type { CountryGuideSections, FoodEntry } from "@/lib/country-guide-types"
 import { CountryGuideNav } from "@/components/countries/country-guide-nav";
 import { CountryCityTags } from "@/components/countries/country-city-tags";
 import { GuideCarousel } from "@/components/countries/guide-carousel";
-import { ActivityFeatureGrid } from "@/components/countries/activity-feature-grid";
+import { ActivityJournalList } from "@/components/countries/activity-journal-list";
 import { ShoppingBoard } from "@/components/countries/shopping-board";
 import {
   AirplaneMark,
-  HeroFactIcon,
+  HandNote,
   PassportStamp,
   SuitcaseMark,
   WeatherIcon,
 } from "@/components/countries/guide-art";
-import {
-  getGuidePhotography,
-  getHeroFacts,
-  splitLeadSentence,
-  weatherGlyph,
-} from "@/lib/country-media";
+import { getGuidePhotography, weatherGlyph } from "@/lib/country-media";
 
 type CountryGuideTemplateProps = {
   country: Country;
@@ -100,29 +95,29 @@ function foodItems(guide: CountryGuideSections) {
   );
 }
 
+/** The ONE secondary warm surface, applied as a full-bleed tint. No other tinted variants. */
 function GuideSection({
   id,
-  wash,
+  tint = false,
+  lead = false,
   children,
 }: {
   id: string;
-  wash?: "cream" | "lavender" | "warm";
+  tint?: boolean;
+  lead?: boolean;
   children: ReactNode;
 }) {
-  const washClass =
-    wash === "cream"
-      ? "bg-[var(--color-guide-cream)]/80"
-      : wash === "lavender"
-        ? "bg-[rgba(91,58,142,0.035)]"
-        : wash === "warm"
-          ? "bg-[var(--color-guide-warm)]/75"
-          : "";
-
   return (
-    <section id={id} className="relative scroll-mt-24 py-10 md:py-12 lg:py-14">
-      {washClass ? (
+    <section
+      id={id}
+      className={[
+        "relative scroll-mt-24 pb-10 md:pb-12 lg:pb-14",
+        lead ? "pt-20" : "pt-10 md:pt-12 lg:pt-14",
+      ].join(" ")}
+    >
+      {tint ? (
         <div
-          className={`pointer-events-none absolute inset-y-0 -left-6 -right-6 -z-10 md:-left-10 md:-right-10 ${washClass}`}
+          className="pointer-events-none absolute inset-y-0 -left-6 -right-6 -z-10 bg-[var(--color-guide-surface)] md:-left-10 md:-right-10"
           aria-hidden
         />
       ) : null}
@@ -133,7 +128,7 @@ function GuideSection({
 
 const LOGISTICS_NOTES = [
   ["Getting around", "gettingAround"],
-  ["Airport notes", "airport"],
+  ["Airport", "airport"],
   ["Transit", "transit"],
   ["Cash & cards", "cashCard"],
   ["General tips", "tips"],
@@ -149,10 +144,7 @@ export function CountryGuideTemplate({
   const photos = getGuidePhotography(country);
   const heroPhoto = photos.hero;
   const neighborhoodPhoto = photos.neighborhood;
-  const closingPhoto = photos.closing;
-  const facts = getHeroFacts(country, guide);
   const annotationCities = country.cities.slice(0, 3);
-  const closingCopy = splitLeadSentence(guide.finalThoughts.closing);
 
   const guideMain = (
     <>
@@ -183,7 +175,7 @@ export function CountryGuideTemplate({
 
           {heroPhoto ? (
             <div className="relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.2rem] bg-[#e8e0d6]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.2rem] bg-[var(--color-guide-surface)]">
                 <Image
                   src={heroPhoto}
                   alt={`Photography for the ${country.name} guide`}
@@ -225,31 +217,11 @@ export function CountryGuideTemplate({
             </div>
           ) : null}
         </div>
-
-        {facts.length > 0 ? (
-          <ul className="mt-10 grid w-full grid-cols-2 gap-x-8 gap-y-6 sm:mt-12 lg:mt-14 lg:grid-cols-4 lg:gap-x-10">
-            {facts.map((fact) => (
-              <li key={fact.label} className="min-w-0">
-                <span className="flex h-8 w-8 items-center text-[var(--color-text-primary)]">
-                  <HeroFactIcon
-                    icon={fact.icon}
-                    className="h-[1.15rem] w-[1.15rem]"
-                  />
-                </span>
-                <p className="mt-2.5 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--color-text-primary)]">
-                  {fact.label}
-                </p>
-                <p className="mt-1 text-[13px] leading-snug text-[#8a827a]">
-                  {fact.detail}
-                </p>
-              </li>
-            ))}
-          </ul>
-        ) : null}
       </header>
 
-      <div className="mt-16 md:mt-20">
-        <GuideSection id="why-i-loved-it">
+      <div>
+        {/* Large statement — the pull quote sets the personal tone */}
+        <GuideSection id="why-i-loved-it" lead>
           <GuideSectionTitle eyebrow="Quick take" title="Why I loved it" />
           <div className="relative max-w-3xl">
             {whyLead ? (
@@ -266,7 +238,7 @@ export function CountryGuideTemplate({
               </>
             ) : null}
             {whyRest.length > 0 ? (
-              <div className="mt-8 max-w-xl space-y-5 text-base leading-[1.85] text-[var(--color-text-muted)] md:mt-10 md:text-[1.0625rem]">
+              <div className="mt-6 max-w-xl space-y-3 text-[0.975rem] leading-[1.7] text-[var(--color-text-muted)] md:mt-7">
                 {whyRest.map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
@@ -275,7 +247,8 @@ export function CountryGuideTemplate({
           </div>
         </GuideSection>
 
-        <GuideSection id="neighborhoods" wash="cream">
+        {/* Editorial list + one sticky photo, on the unified warm surface */}
+        <GuideSection id="neighborhoods" tint>
           <GuideSectionTitle
             eyebrow="Areas"
             title="Neighborhoods & pockets worth knowing"
@@ -287,20 +260,20 @@ export function CountryGuideTemplate({
                 : "relative"
             }
           >
-            <ol className="divide-y divide-[rgba(31,29,27,0.08)] border-y border-[rgba(31,29,27,0.08)]">
+            <ol className="divide-y divide-[rgba(31,29,27,0.1)]">
               {guide.neighborhoods.map((n, i) => (
                 <li
                   key={n.name}
-                  className="grid gap-2 py-6 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-6 sm:py-7"
+                  className="grid gap-1.5 py-5 first:pt-0 last:pb-0 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 sm:py-6"
                 >
-                  <p className="font-mono text-xs tracking-[0.16em] text-[#A39B95]">
+                  <p className="font-display text-[1.6rem] leading-none tracking-tight text-[rgba(91,58,142,0.4)] sm:text-[1.85rem]">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <div>
-                    <h3 className="font-display text-[1.45rem] leading-tight tracking-tight text-[var(--color-text-primary)] md:text-[1.65rem]">
+                    <h3 className="font-display text-[1.4rem] leading-tight tracking-tight text-[var(--color-text-primary)] md:text-[1.55rem]">
                       {n.name}
                     </h3>
-                    <p className="mt-2.5 text-[0.975rem] leading-[1.8] text-[var(--color-text-muted)]">
+                    <p className="mt-1.5 text-[0.925rem] leading-[1.55] text-[var(--color-text-muted)]">
                       {n.vibe}
                     </p>
                   </div>
@@ -309,7 +282,7 @@ export function CountryGuideTemplate({
             </ol>
             {neighborhoodPhoto ? (
               <aside className="relative mx-auto w-full max-w-sm lg:sticky lg:top-28 lg:mx-0 lg:max-w-none">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.15rem] bg-[#e8e0d6]">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.15rem] bg-[var(--color-guide-surface)]">
                   <Image
                     src={neighborhoodPhoto}
                     alt={`A neighborhood view from ${country.name}`}
@@ -331,49 +304,35 @@ export function CountryGuideTemplate({
           </div>
         </GuideSection>
 
+        {/* Whitespace + typography-only rhythm break — big numbers, no photography */}
         <GuideSection id="things-to-do">
-          <GuideSectionTitle eyebrow="Itinerary" title="Things to do" />
-          <ActivityFeatureGrid
+          <GuideSectionTitle
+            eyebrow="Itinerary"
+            title="Things to do"
+            accessory={
+              <HandNote className="hidden -rotate-2 sm:block">
+                the move
+              </HandNote>
+            }
+          />
+          <ActivityJournalList
             items={guide.thingsToDo.mustDo}
-            photos={photos.photos}
+            accentPhoto={photos.activityAccent}
             countryName={country.name}
           />
-          <div className="mt-10 grid gap-8 border-t border-[rgba(31,29,27,0.08)] pt-8 md:mt-12 md:grid-cols-2 md:gap-14 md:pt-10">
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
-                Worth it if…
-              </p>
-              <ul className="mt-4 space-y-3">
-                {guide.thingsToDo.worthItIf.map((item, i) => (
-                  <li
-                    key={`${i}-${item.slice(0, 24)}`}
-                    className="text-sm leading-7 text-[var(--color-text-muted)] md:text-[0.9375rem]"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
-                Skip / lower priority
-              </p>
-              <ul className="mt-4 space-y-3">
-                {guide.thingsToDo.skipOrLower.map((item, i) => (
-                  <li
-                    key={`${i}-${item.slice(0, 24)}`}
-                    className="text-sm leading-7 text-[#8a827a] md:text-[0.9375rem]"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </GuideSection>
 
-        <GuideSection id="food-drink" wash="lavender">
-          <GuideSectionTitle eyebrow="Taste" title="Food & drink" />
+        {/* Image-led moment — photo + short caption, on the unified warm surface */}
+        <GuideSection id="food-drink" tint>
+          <GuideSectionTitle
+            eyebrow="Taste"
+            title="Food & drink"
+            accessory={
+              <HandNote className="hidden -rotate-2 sm:block">
+                favorites
+              </HandNote>
+            }
+          />
           <GuideCarousel
             label="Food and drink picks"
             variant="peek"
@@ -381,32 +340,43 @@ export function CountryGuideTemplate({
           />
         </GuideSection>
 
+        {/* Quiet, plain-background list — deliberately not another carousel */}
         <GuideSection id="shopping">
           <GuideSectionTitle eyebrow="Browse" title="Shopping" />
           <ShoppingBoard items={guide.shopping} />
         </GuideSection>
 
-        <GuideSection id="logistics">
-          <GuideSectionTitle eyebrow="Practical" title="Logistics" />
-          <div className="overflow-hidden rounded-[1.25rem] bg-[#f1ebe4] px-5 py-6 md:px-8 md:py-8">
-            <dl className="divide-y divide-[rgba(31,29,27,0.08)]">
-              {LOGISTICS_NOTES.map(([label, key]) => (
-                <div
-                  key={label}
-                  className="grid gap-2 py-5 first:pt-0 last:pb-0 md:grid-cols-[10.5rem_minmax(0,1fr)] md:gap-8 md:py-6"
-                >
-                  <dt className="text-sm font-medium tracking-tight text-[var(--color-text-primary)]">
-                    {label}
-                  </dt>
-                  <dd className="text-[0.975rem] leading-[1.75] text-[var(--color-text-muted)]">
-                    {guide.logistics[key]}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+        {/* "Things I wish I knew" — compact rows + one highlighted warning */}
+        <GuideSection id="logistics" tint>
+          <GuideSectionTitle eyebrow="Practical" title="Things I wish I knew" />
+          <dl className="divide-y divide-[rgba(31,29,27,0.1)]">
+            {LOGISTICS_NOTES.map(([label, key]) => (
+              <div
+                key={label}
+                className="grid gap-1.5 py-4 first:pt-0 last:pb-0 sm:grid-cols-[9rem_minmax(0,1fr)] sm:items-baseline sm:gap-8"
+              >
+                <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-signature-ink)]">
+                  {label}
+                </dt>
+                <dd className="text-[0.975rem] leading-[1.6] text-[var(--color-text-primary)]">
+                  {guide.logistics[key]}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          {guide.logistics.warning ? (
+            <div className="relative mt-7 rounded-[0.9rem] border border-[rgba(91,58,142,0.22)] bg-[var(--color-surface)] px-5 py-5 md:px-6 md:py-6">
+              <HandNote className="-rotate-1 text-[1.15rem]">
+                I learned this the hard way
+              </HandNote>
+              <p className="mt-2.5 text-[0.975rem] leading-[1.6] text-[var(--color-text-primary)]">
+                {guide.logistics.warning}
+              </p>
+            </div>
+          ) : null}
         </GuideSection>
 
+        {/* Extremely scannable — one statement, three columns, done */}
         <GuideSection id="weather">
           <GuideSectionTitle
             eyebrow="Seasons"
@@ -414,8 +384,11 @@ export function CountryGuideTemplate({
           />
           <p className="max-w-3xl font-display text-[1.45rem] leading-[1.3] tracking-tight text-[var(--color-text-primary)] md:text-[1.85rem] md:leading-[1.28]">
             {guide.weather.bestMonths}
+            <HandNote className="ml-3 hidden -rotate-2 align-middle text-[1.1rem] md:inline-block">
+              trust me
+            </HandNote>
           </p>
-          <div className="mt-8 grid gap-8 border-t border-[rgba(31,29,27,0.08)] pt-8 md:mt-10 md:grid-cols-3 md:gap-10 md:pt-9">
+          <div className="mt-8 grid gap-8 border-t border-[rgba(31,29,27,0.08)] pt-8 md:mt-9 md:grid-cols-3 md:gap-10 md:pt-8">
             <WeatherFact
               label="Best months"
               text={guide.weather.bestMonths}
@@ -434,60 +407,23 @@ export function CountryGuideTemplate({
           </div>
         </GuideSection>
 
+        {/* Playful close — tightened pills, breaks the rhythm on purpose */}
         <GuideSection id="packing">
           <GuideSectionTitle
             eyebrow="Bag"
             title="Packing notes"
             accessory={
-              <SuitcaseMark className="mt-3 hidden h-10 w-10 text-[var(--color-signature)] opacity-45 md:block" />
+              <SuitcaseMark className="mt-3 hidden h-9 w-9 text-[var(--color-signature)] opacity-45 md:block" />
             }
           />
-          <div className="space-y-7">
+          <div className="space-y-5">
             <PackingGroup label="Bring" items={guide.packing.bring} tone="bring" />
             <PackingGroup label="Wear" items={guide.packing.wear} tone="wear" />
             <PackingGroup
-              label="Skip / don’t overpack"
+              label="Skip"
               items={guide.packing.skip}
               tone="skip"
             />
-          </div>
-        </GuideSection>
-
-        <GuideSection id="final-thoughts" wash="warm">
-          <GuideSectionTitle eyebrow="Closing" title="Final thoughts" />
-          <div
-            className={
-              closingPhoto
-                ? "grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(16rem,0.95fr)] lg:gap-12"
-                : ""
-            }
-          >
-            <div>
-              <p className="max-w-2xl font-display text-[1.45rem] leading-[1.32] text-[var(--color-text-primary)] md:text-[1.75rem] md:leading-[1.3]">
-                {closingCopy.lead}
-              </p>
-              {closingCopy.rest ? (
-                <p className="mt-5 max-w-xl text-[1.02rem] leading-[1.8] text-[var(--color-text-muted)]">
-                  {closingCopy.rest}
-                </p>
-              ) : null}
-              <div className="relative mt-8 max-w-xl border-l-2 border-[rgba(91,58,142,0.3)] pl-5 md:pl-6">
-                <p className="text-[1.02rem] leading-[1.8] text-[var(--color-text-muted)]">
-                  {guide.finalThoughts.whoItsFor}
-                </p>
-              </div>
-            </div>
-            {closingPhoto ? (
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.15rem] sm:aspect-[5/4] lg:aspect-[4/5]">
-                <Image
-                  src={closingPhoto}
-                  alt={`A last look at ${country.name}`}
-                  fill
-                  className="object-cover object-[center_40%]"
-                  sizes="(min-width: 1024px) 24rem, 100vw"
-                />
-              </div>
-            ) : null}
           </div>
         </GuideSection>
       </div>
@@ -576,18 +512,18 @@ function PackingGroup({
       ? "border-[rgba(91,58,142,0.28)] bg-[var(--color-signature-soft)]/70 text-[var(--color-signature-ink)]"
       : tone === "wear"
         ? "border-[rgba(31,29,27,0.12)] bg-[var(--color-surface)] text-[var(--color-text-primary)]"
-        : "border-[rgba(31,29,27,0.1)] bg-[#efeae4] text-[#8a827a]";
+        : "border-[rgba(31,29,27,0.1)] bg-[var(--color-guide-surface)] text-[#8a827a]";
 
   return (
     <div>
-      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
+      <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
         {label}
       </p>
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap gap-1.5">
         {items.map((item) => (
           <li
             key={item}
-            className={`rounded-full border px-3 py-1.5 text-[13px] leading-snug ${pillClass}`}
+            className={`rounded-full border px-3 py-1 text-[13px] leading-snug ${pillClass}`}
           >
             {item}
           </li>

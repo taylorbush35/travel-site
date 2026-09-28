@@ -162,6 +162,40 @@ function CarouselCard({
   const photo = item.image && hasPhotographicAsset(item.image) ? item.image : null;
   const imageLed = variant === "peek" || variant === "stack";
 
+  if (variant === "peek") {
+    return (
+      <figure className="flex h-full flex-col">
+        {photo ? (
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[0.65rem] bg-[var(--color-guide-surface)]">
+            <Image
+              src={photo}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 22rem, (min-width: 768px) 40vw, 90vw"
+            />
+          </div>
+        ) : (
+          <div className="h-px w-8 bg-[var(--color-signature)]/30" aria-hidden />
+        )}
+        <figcaption className={photo ? "mt-3.5 flex-1" : "mt-4 flex-1"}>
+          <p className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
+            {item.kicker}
+            {item.meta ? ` · ${item.meta}` : ""}
+          </p>
+          <h3 className="mt-1 font-display text-[1.2rem] leading-[1.25] tracking-tight text-[var(--color-text-primary)]">
+            {item.title}
+          </h3>
+          {item.body ? (
+            <p className="mt-1.5 text-[0.875rem] leading-[1.5] text-[var(--color-text-muted)]">
+              {item.body}
+            </p>
+          ) : null}
+        </figcaption>
+      </figure>
+    );
+  }
+
   const copy = (
     <div
       className={
@@ -178,11 +212,9 @@ function CarouselCard({
       <h3
         className={[
           "mt-2 font-display tracking-tight text-[var(--color-text-primary)]",
-          variant === "peek"
-            ? "text-[1.25rem] leading-[1.25] md:text-[1.35rem]"
-            : variant === "cover"
-              ? "mt-3 text-[1.35rem] leading-[1.25] md:text-[1.45rem]"
-              : "mt-3 text-[1.45rem] leading-[1.2] md:text-[1.6rem]",
+          variant === "cover"
+            ? "mt-3 text-[1.35rem] leading-[1.25] md:text-[1.45rem]"
+            : "mt-3 text-[1.45rem] leading-[1.2] md:text-[1.6rem]",
         ].join(" ")}
       >
         {item.title}
@@ -191,12 +223,7 @@ function CarouselCard({
         <p className="mt-1.5 text-sm leading-relaxed text-[#8a827a]">{item.meta}</p>
       ) : null}
       {item.body ? (
-        <p
-          className={[
-            "text-[0.925rem] leading-[1.7] text-[var(--color-text-muted)]",
-            variant === "peek" ? "mt-2.5" : "mt-4 leading-[1.75]",
-          ].join(" ")}
-        >
+        <p className="mt-4 text-[0.925rem] leading-[1.75] text-[var(--color-text-muted)]">
           {item.body}
         </p>
       ) : null}
@@ -215,9 +242,7 @@ function CarouselCard({
           className={
             variant === "split"
               ? "relative aspect-[5/4] w-full md:aspect-auto md:w-[55%] md:self-stretch"
-              : variant === "peek"
-                ? "relative aspect-[5/4] w-full"
-                : "relative aspect-[4/3] w-full"
+              : "relative aspect-[4/3] w-full"
           }
         >
           <Image
@@ -234,11 +259,6 @@ function CarouselCard({
             {item.kicker}
           </span>
         </div>
-      ) : variant === "peek" ? (
-        <div
-          className="mx-5 mt-5 h-px w-10 bg-[var(--color-signature)]/35"
-          aria-hidden
-        />
       ) : null}
       {copy}
     </article>

@@ -1,75 +1,47 @@
-import Image from "next/image";
-import { GuideCarousel } from "@/components/countries/guide-carousel";
 import type { ShoppingEntry } from "@/lib/country-guide-types";
-import { hasPhotographicAsset } from "@/lib/country-media";
 
+/**
+ * A quiet, typographic list — deliberately not another carousel. Keeps
+ * Shopping feeling like scannable notes rather than a wall of UI cards.
+ */
 export function ShoppingBoard({ items }: { items: ShoppingEntry[] }) {
   if (items.length === 0) return null;
 
-  if (items.length <= 2) {
-    return (
-      <ul className="grid gap-4 md:grid-cols-2 md:gap-5">
-        {items.map((item) => (
-          <li key={item.name}>
-            <ShoppingModule item={item} />
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  const half = Math.ceil(items.length / 2);
+  const left = items.slice(0, half);
+  const right = items.slice(half);
 
   return (
-    <GuideCarousel
-      label="Shopping picks"
-      variant="peek"
-      items={items.map((entry) => ({
-        kicker: entry.category,
-        title: entry.name,
-        body: entry.note,
-        image: entry.image,
-      }))}
-    />
+    <div className="grid gap-x-14 md:grid-cols-2">
+      <ul className="divide-y divide-[rgba(31,29,27,0.08)]">
+        {left.map((item) => (
+          <ShoppingRow key={item.name} item={item} />
+        ))}
+      </ul>
+      {right.length > 0 ? (
+        <ul className="mt-2 divide-y divide-[rgba(31,29,27,0.08)] border-t border-[rgba(31,29,27,0.08)] md:mt-0 md:border-t-0">
+          {right.map((item) => (
+            <ShoppingRow key={item.name} item={item} />
+          ))}
+        </ul>
+      ) : null}
+    </div>
   );
 }
 
-function ShoppingModule({ item }: { item: ShoppingEntry }) {
-  const photo = item.image && hasPhotographicAsset(item.image) ? item.image : null;
-
+function ShoppingRow({ item }: { item: ShoppingEntry }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[1.15rem] border border-[rgba(31,29,27,0.08)] bg-[var(--color-surface)] md:min-h-[12.5rem] md:flex-row">
-      {photo ? (
-        <div className="relative hidden w-[40%] shrink-0 md:block">
-          <Image
-            src={photo}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="(min-width: 768px) 14rem, 40vw"
-          />
-        </div>
-      ) : null}
-      {photo ? (
-        <div className="relative aspect-[5/4] w-full md:hidden">
-          <Image
-            src={photo}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="90vw"
-          />
-        </div>
-      ) : null}
-      <div className="flex min-w-0 flex-1 flex-col justify-center px-5 py-5 md:px-6 md:py-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
-          {item.category}
-        </p>
-        <h3 className="mt-2 font-display text-[1.35rem] leading-[1.2] tracking-tight text-[var(--color-text-primary)] md:text-[1.5rem]">
-          {item.name}
-        </h3>
-        <p className="mt-3 text-[0.925rem] leading-[1.7] text-[var(--color-text-muted)]">
-          {item.note}
-        </p>
-      </div>
-    </article>
+    <li className="py-5 first:pt-0 last:pb-0 sm:py-6">
+      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#A39B95]">
+        {item.category}
+        {item.area ? ` · ${item.area}` : ""}
+      </p>
+      <h3 className="mt-1.5 font-display text-[1.3rem] leading-[1.2] tracking-tight text-[var(--color-text-primary)] sm:text-[1.4rem]">
+        {item.name}
+      </h3>
+      <p className="mt-1.5 text-[0.925rem] leading-[1.55] text-[var(--color-text-muted)]">
+        {item.note}
+      </p>
+    </li>
   );
 }

@@ -15,7 +15,7 @@ function placeholderFood(label: string): FoodEntry[] {
     {
       name: `Add a ${label} spot`,
       area: "—",
-      note: "Replace with a real pick when you edit this guide.",
+      note: "Swap in a real pick.",
     },
   ];
 }
@@ -27,7 +27,7 @@ function defaultNeighborhoods(country: Country): CountryGuideSections["neighborh
 
   return cities.slice(0, 4).map((city) => ({
     name: city,
-    vibe: `A placeholder vibe for ${city} — warm streets, local rhythm, and room to wander without a rigid itinerary.`,
+    vibe: `A placeholder vibe for ${city} — warm streets, easy wandering.`,
   }));
 }
 
@@ -81,27 +81,26 @@ const GUIDE_OVERRIDES: Partial<
 > = {
   finland: {
     whyILovedIt: [
-      "Helsinki surprised me in the best way — and I think it will for you too. It was my last stop on my solo trip and I went into it with pretty much no expectations.",
-      "From the sauna culture to quiet friendliness, there is something sneakily special about Helsinki.",
-      "There was something about the trams, the water, the quiet confidence of the city, and the way everything felt simple without feeling boring.",
-      "It wasn’t the loudest stop on my trip, but it was the one that stayed with me.",
+      "Helsinki surprised me in the best way — my last stop, and the one I think about most.",
+      "The sauna culture, the trams, the water — simple without being boring.",
+      "It wasn’t the loudest stop on my trip. It’s the one that stayed with me.",
     ].join("\n\n"),
     neighborhoods: [
       {
         name: "Katajanokka",
-        vibe: "A calm, slightly tucked-away base near the water. Great if you want quiet mornings, easy tram access, and a more peaceful home base.",
+        vibe: "A calm, tucked-away base near the water — quiet mornings, easy trams.",
       },
       {
         name: "Design District",
-        vibe: "Shops, galleries, cafes, and streets that make you want to wander without a plan.",
+        vibe: "Shops, galleries, and streets built for wandering without a plan.",
       },
       {
         name: "Central Helsinki",
-        vibe: "Your easiest starting point for cathedrals, transit, shopping, and getting oriented.",
+        vibe: "The easiest starting point — cathedrals, transit, and shopping, all together.",
       },
       {
         name: "Suomenlinna",
-        vibe: "A sea fortress island that feels like a reset button outside the city.",
+        vibe: "A sea fortress island that feels like a reset button.",
       },
     ],
     thingsToDo: {
@@ -111,17 +110,7 @@ const GUIDE_OVERRIDES: Partial<
         "Visit Uspenski Cathedral",
         "Take the ferry to Suomenlinna",
         "Wander the Design District",
-        "Ride the trams instead of overthinking transit",
-      ],
-      worthItIf: [
-        "Do a Porvoo day trip if you want a charming town moment",
-        "Spend extra time by the water if you need a slower day",
-        "Pop into small design shops even if you’re “just looking”",
-      ],
-      skipOrLower: [
-        "Trying to over-schedule the city",
-        "Treating Helsinki like a checklist destination",
-        "Only staying near the central station and not wandering farther out",
+        "Ride the trams — don’t overthink it",
       ],
     },
     foodDrink: {
@@ -129,33 +118,33 @@ const GUIDE_OVERRIDES: Partial<
         {
           name: "Robert’s Cafe",
           area: "Helsinki",
-          note: "A solid breakfast-and-coffee stop while you’re getting oriented.",
+          note: "Good coffee while you get oriented.",
         },
         {
           name: "Cafe Engel",
           area: "Helsinki",
-          note: "Classic cafe energy — good for people-watching and a slower morning.",
+          note: "Classic cafe energy — great for people-watching.",
         },
       ],
       casual: [
         {
           name: "Cafes around town",
           area: "Helsinki",
-          note: "Every cafe is open pretty late, so you can grab food or linger without feeling rushed.",
+          note: "Open late — never rushed.",
         },
       ],
       dinner: [
         {
           name: "Löyly Restaurant",
           area: "Waterfront",
-          note: "Natural pairing if you’re doing the sauna experience at Löyly — worth booking ahead.",
+          note: "Book ahead and pair it with the sauna.",
         },
       ],
       cocktailsWine: [
         {
           name: "Wine bars & cafés",
           area: "Citywide",
-          note: "Literally any wine bar or cafe that looks good — just stop in.",
+          note: "Any spot that looks good. Just walk in.",
         },
       ],
     },
@@ -163,49 +152,45 @@ const GUIDE_OVERRIDES: Partial<
       {
         name: "Design District shops",
         category: "Design & home",
-        note: "Best for home goods, design, browsing, and aesthetic souvenirs.",
+        area: "Helsinki",
+        note: "The good souvenirs — home goods and browsing.",
       },
       {
         name: "City Center",
         category: "Shopping areas",
-        note: "Best for easy shopping — main shops centralized in one area.",
+        area: "Helsinki",
+        note: "Everything centralized. Easy shopping.",
       },
     ],
     logistics: {
-      gettingAround:
-        "The tram system is easy once you do it once. Don’t let the first ride intimidate you.",
-      airport:
-        "Plan your route before you land so you’re not figuring it out while tired. The airport is about 35–40 minutes from the city center. The train goes straight to the center and is very easy to navigate.",
-      transit:
-        "Trams are the move. Helsinki is very manageable without a car — or just walk.",
-      cashCard: "Card-friendly and easy.",
-      tips: "Helsinki is not a city you need to conquer. Let it be simple.",
+      gettingAround: "Trams are simple after one ride.",
+      airport: "About 35–40 min to downtown — take the train.",
+      transit: "Very walkable. Trams over taxis.",
+      cashCard: "Card-friendly, everywhere.",
+      tips: "Helsinki doesn’t need conquering. Let it be simple.",
     },
     weather: {
-      bestMonths:
-        "Spring or early summer if you want longer light and easier walking weather.",
-      whatToExpect:
-        "Cooler air, waterfront wind, and weather that can shift quickly.",
-      whatToAvoid:
-        "Packing like it’s warm just because the sun is out.",
+      bestMonths: "Spring or early summer — longer light, easier walking.",
+      whatToExpect: "Cool air, waterfront wind, quick shifts.",
+      whatToAvoid: "Packing like it’s warm just because the sun’s out.",
     },
     packing: {
       bring: [
         "Light layers",
-        "Comfortable walking shoes",
+        "Walking shoes",
         "Sunglasses",
         "A swimsuit for sauna",
-        "A jacket that works near the water",
+        "A jacket for the water",
       ],
       wear: [
         "Neutral layers",
-        "Comfortable but put-together outfits",
-        "Shoes you can walk in for hours",
+        "Put-together comfort",
+        "Shoes for hours of walking",
       ],
       skip: [
-        "Too many “just in case” shoes",
+        "“Just in case” shoes",
         "Heavy glam outfits",
-        "Anything you wouldn’t want to wear while walking, shopping, or hopping on a tram",
+        "Anything you can’t tram in",
       ],
     },
     finalThoughts: {
@@ -217,50 +202,37 @@ const GUIDE_OVERRIDES: Partial<
   },
   vietnam: {
     whyILovedIt: [
-      "I never would have gone to Vietnam if it wasn’t for work. I got sent, I showed up, and Da Nang ended up becoming one of my favorite cities in the entire world.",
-      "The most recent trip was about ten days, based in Da Nang proper along the Han River. It was far better than any of my earlier visits. The city is beachy and tropical in a way I wasn’t expecting — calm and busy at the same time, with everyone just doing their own thing.",
-      "This was some of my first time traveling somewhere not a lot of English is spoken. My engineering team is out there, and everyone is so welcoming. They’re excited to talk to you. They want to know where you’re from and what you’re doing. That, plus calling a motorbike like an Uber and riding toward the water, is the part I will never forget.",
-      "Ho Chi Minh was my first time in Asia, a couple of years ago. I was dropped off with two coworkers and we figured it out as we went. It’s beautiful, and it’s a proper city — one of the busiest I’ve ever seen — but I didn’t explore enough to pretend this is a Ho Chi Minh guide. This one is really about Da Nang, with Hoi An as the day you actually plan for.",
+      "Never would’ve booked Vietnam myself — got sent for work, fell for Da Nang anyway.",
+      "Beachy, tropical, calm and busy at once. My team’s warmth made the trip.",
+      "This is really a Da Nang guide, with Hoi An as the day trip. I didn’t see enough of Ho Chi Minh to guide you there.",
     ].join("\n\n"),
     neighborhoods: [
       {
         name: "Da Nang (Han River)",
-        vibe: "This is where I actually lived the trip — city proper, right by the river, close to the office. It feels settled: busy enough to be a real city, calm enough that you can still have a day. The beach is part of the whole mood, even when you’re not on it.",
+        vibe: "Where I actually lived — real-city busy, still calm enough to breathe.",
       },
       {
         name: "Hoi An",
-        vibe: "Lanterns, tailor shops, bánh mì, and the version of Vietnam people have already seen in photos. It’s about an hour from Da Nang, and it’s worth it — if you treat it like a real outing, not a quick errand.",
+        vibe: "Lanterns, tailors, bánh mì — worth the hour if you treat it as a real outing.",
       },
       {
         name: "Da Nang beach",
-        vibe: "The tropical part I wasn’t prepared for. The views are incredible. It’s the reason Da Nang doesn’t feel like a generic work city — you can be in town and still feel like you’re somewhere with water.",
+        vibe: "The tropical surprise. Views alone make Da Nang feel like more than a work trip.",
       },
       {
         name: "Ho Chi Minh City",
-        vibe: "A proper, wild city. The motorbike culture is intense everywhere in Vietnam, but here it felt like a different sport. Beautiful, busy, and a lot if it’s your first time in Asia. I stayed close to the office and didn’t do enough exploring to give you a neighborhood map.",
+        vibe: "Wild and busy — a lot for a first Asia trip. I didn’t explore enough to map it.",
       },
     ],
     thingsToDo: {
       mustDo: [
-        "Call a Grab motorbike in Da Nang and just go — it’s like an Uber, and the ride itself is half the point",
-        "Spend time by the water. The beach views in Da Nang are insane",
-        "Go to Hòa Phú Thành (you’ll hear it as Ho Fu Tan) — outdoor water slides and rafting. Our engineers took us and it was the most fun I had",
-        "Get clothes tailored at Silk Road in Hoi An. That’s the reason to go",
-        "Eat bánh xèo. It’s my favorite food in Vietnam, and I’m not being cute about it",
-        "Walk the Da Nang night market. Famous for a reason — go",
-        "See the lanterns in Hoi An, but do it as one planned day or stay over",
-      ],
-      worthItIf: [
-        "You’re brave enough to drive a motorbike yourself. If not, just get on the back of one",
-        "You want to stay a night or two in Hoi An instead of day-tripping from Da Nang",
-        "You’re willing to pick live seafood and have them cook it right there — intimidating, worth trying",
-        "Hòa Phú Thành is on the list — a private driver is easier than hoping Grab will take you that far",
-      ],
-      skipOrLower: [
-        "Shuttling Da Nang → Hoi An over and over. An hour each way, multiple times, will make you hate a place you were supposed to like",
-        "Anywhere in Hoi An that feels touristy on purpose. You’ll know. Walk past it",
-        "Getting on the back of a bike in Ho Chi Minh. I would never",
-        "Treating Ho Chi Minh like the main event if you only have Da Nang time — I didn’t see enough of it to send you on a scavenger hunt",
+        "Call a Grab motorbike in Da Nang and just go — the ride’s half the point",
+        "Chase the water. Da Nang’s beach views are unreal",
+        "Hòa Phú Thành for water slides and rafting — most fun I had",
+        "Get clothes tailored at Silk Road in Hoi An",
+        "Eat bánh xèo — my favorite food in the country",
+        "Walk the Da Nang night market",
+        "See the Hoi An lanterns as one full day, not a rushed stop",
       ],
     },
     foodDrink: {
@@ -268,105 +240,103 @@ const GUIDE_OVERRIDES: Partial<
         {
           name: "Vietnamese coffee",
           area: "Everywhere",
-          note: "The number one thing. This is the breakfast move. Don’t overthink the shop — just get the coffee.",
+          note: "The breakfast move. Don’t overthink the shop.",
         },
       ],
       casual: [
         {
           name: "Bánh mì",
-          area: "Hoi An (and anywhere you see it)",
-          note: "The sandwich. Street food. Hoi An’s is the one I still think about — get it while you’re already in town, not as a reason to shuttle back a fourth time.",
+          area: "Hoi An",
+          note: "The sandwich I still think about.",
         },
         {
           name: "Street food, wherever it looks good",
           area: "Da Nang & Hoi An",
-          note: "Street food is popular, easy, and everywhere. Try things you haven’t had. The food can feel seafood-heavy if that’s not your usual — lean in anyway.",
+          note: "Everywhere, and worth trying blind.",
         },
         {
           name: "Live seafood",
           area: "Da Nang",
-          note: "You pick it while it’s still swimming, and they cook it for you right then. It sounds like a lot. It is a lot. Still try it.",
+          note: "You pick it swimming. Intimidating. Worth it.",
         },
       ],
       dinner: [
         {
           name: "Bánh xèo",
           area: "Vietnam, whenever you see it",
-          note: "My favorite food in the country. If you only take one food note from this page, take this one.",
+          note: "My favorite food here, full stop.",
         },
         {
           name: "The non-touristy places in Hoi An",
           area: "Hoi An",
-          note: "There are really good spots. Stay away from the ones performing for visitors — you can always tell.",
+          note: "Skip anywhere performing for visitors.",
         },
       ],
       cocktailsWine: [
         {
           name: "A cold drink, not a scene",
           area: "Da Nang",
-          note: "I didn’t chase nightlife here. After the heat and a motorbike ride, any normal spot with a cold drink is enough.",
+          note: "No nightlife-chasing needed after a motorbike ride.",
         },
       ],
     },
     shopping: [
       {
         name: "Silk Road",
-        category: "Custom clothes · Hoi An",
-        note: "I always go here. Best one for clothes made. If you end up going, let me know — and tell them I sent you.",
+        category: "Custom clothes",
+        area: "Hoi An",
+        note: "My go-to for tailored clothes. Tell them I sent you.",
       },
       {
         name: "Hoi An market streets",
         category: "Markets & shops",
-        note: "A lot of my shopping happened here — market streets, little shops, the whole old-town browse.",
+        area: "Hoi An",
+        note: "Most of my shopping happened right here.",
       },
       {
         name: "Da Nang night market",
         category: "Night market",
-        note: "Very famous, and you should absolutely go. It’s the Da Nang shopping night I actually remember.",
+        area: "Da Nang",
+        note: "Famous for a reason — go.",
       },
       {
         name: "Han Market",
-        category: "Da Nang",
-        note: "The long shopping street near the night market — a few kilometers away. One long street of shops. That’s the one.",
+        category: "Shopping street",
+        area: "Da Nang",
+        note: "One long street of shops. That’s the one.",
       },
     ],
     logistics: {
-      gettingAround:
-        "Grab is how you do everything. It’s cheap, easy, and the number one way to move. In Da Nang, motorbikes are the move — call one like an Uber. In Ho Chi Minh, I would not get on the back of a bike.",
-      airport:
-        "The flight is long. There is no way around that. If you can land back home in the early morning or afternoon, you’ll stay ahead of the jet lag. Do not exchange money at the airport — the rate is terrible.",
-      transit:
-        "Within the city: motorbikes, or Grab when you don’t want the bike. Hoi An is about an hour from Da Nang. For Hòa Phú Thành, our engineers drove us — Grab can get thin that far out, so look at the ride situation before you commit, or hire a driver. We did that too, and it was nice.",
-      cashCard:
-        "Pretty much everywhere takes card. Still bring $200–300 USD and exchange it into Vietnamese dong once you’re in town — not at the airport. Look for a decent rate; Hoi An has little stands that will do it. Flat bills only. Brand-new bills get you a better rate. Put your card in Grab before you ever request a ride. You can pay Grab in cash, and once a trip is booked that way, you cannot switch to card. I learned this the hard way, had a full panic, and we had to scramble American dollars. They took it. Do not be me.",
-      tips: "Crossing the street: you just go. There aren’t real pedestrian walk signals the way you’re used to. It takes a minute, and after a few days you’ll be a natural. English isn’t everywhere, and people are still incredibly kind about it. Dress code is not precious — I wore what I’d actually be comfortable in.",
+      gettingAround: "Grab for everything — motorbikes in Da Nang, no bikes for me in Ho Chi Minh.",
+      airport: "Long flight. Land early morning or afternoon to beat jet lag.",
+      transit: "Hoi An’s ~1 hr away. For Hòa Phú Thành, hire a driver — Grab thins out there.",
+      cashCard: "Card works almost everywhere. Bring $200–300 to exchange in town — flat, new bills.",
+      tips: "Crossing streets: just go, there’s no real walk signal. English isn’t everywhere — people are kind about it anyway.",
+      warning:
+        "Put a card on Grab before requesting a ride. Book with cash and you’re stuck with it — learned that one in a panic.",
     },
     weather: {
-      bestMonths:
-        "February through May is the window I’d aim for. November can work too. Spring is probably the most forgiving version of this trip.",
-      whatToExpect:
-        "August was hotter than hell — about 90 degrees and 90% humidity the entire time. November (my first trip) wasn’t necessarily too hot, just super rainy. It is a beachy, tropical city. Pack for that, not for a dry heat wave.",
-      whatToAvoid:
-        "October–November can slide into storm/typhoon season, so keep an eye on forecasts even if the calendar looks nice. I wouldn’t plan around early August unless you like being cooked. Also don’t pack like it’s only humid — when it rains, it rains.",
+      bestMonths: "February–May, or November. Spring’s the most forgiving window.",
+      whatToExpect: "Hot, humid, beachy — pack for tropical, not dry heat.",
+      whatToAvoid: "Early August heat, and October–November storm season.",
     },
     packing: {
       bring: [
         "Bug spray",
         "An umbrella",
         "A rain jacket",
-        "A swimsuit (Hòa Phú Thành will soak you)",
-        "Light clothes you can actually sweat in",
-        "New, flat US bills if you’re exchanging cash",
+        "A swimsuit",
+        "Light, sweat-proof clothes",
       ],
       wear: [
-        "Whatever you’d actually be comfortable in — there’s no strict dress code",
-        "Heat-and-humidity clothes, not cute outfits that melt",
-        "Shoes you can walk markets in, then hop on a motorbike",
+        "Whatever’s actually comfortable — no dress code",
+        "Heat-proof, not cute-and-melting",
+        "Shoes for markets and motorbikes",
       ],
       skip: [
-        "Heavy layers you won’t touch in August",
-        "Anything you wouldn’t want on the back of a bike",
-        "A packed schedule that assumes Hoi An is ‘right there’",
+        "Heavy layers",
+        "Anything you wouldn’t wear on a bike",
+        "A schedule that assumes Hoi An is “right there”",
       ],
     },
     finalThoughts: {
@@ -380,26 +350,12 @@ const GUIDE_OVERRIDES: Partial<
 
 function buildDefaultGuide(country: Country): CountryGuideSections {
   const tripStyle = travelStylesLabel(country);
-  const citiesLine =
-    country.cities.length > 0
-      ? country.cities.join(", ")
-      : "the main hubs below";
 
   return {
-    whyILovedIt: `${country.name} stuck with me for reasons that are hard to explain in a brochure: the rhythm of the days, the small wins when a plan actually works, and the places that felt honest instead of performative. I’m not claiming it’s perfect — but it’s the kind of trip I think about when I’m booking the next one.\n\nIf you only read one personal note in this guide, make it this: go in expecting some friction (language, timing, weather), and you’ll enjoy the good parts more.`,
+    whyILovedIt: `${country.name} stuck with me — the rhythm of the days, the wins when a plan worked, the honest moments over performative ones.\n\nGo in expecting some friction, and you’ll enjoy the good parts more.`,
     neighborhoods: defaultNeighborhoods(country),
     thingsToDo: {
       mustDo: listFromHighlights(country, 3),
-      worthItIf: [
-        `You’re curious about a slower day outside ${citiesLine.split(",")[0] ?? "the main city"}.`,
-        "You don’t mind trading a perfect photo for a quieter moment.",
-        `You want one “splurge” experience that ${country.name} does uniquely well.`,
-      ],
-      skipOrLower: [
-        "Anything that requires sprinting across town every day — you’ll miss the point.",
-        "Over-packed museum days without breaks — plan one lighter afternoon.",
-        "Placeholder: swap this with the tourist traps you actually skipped.",
-      ],
     },
     foodDrink: {
       coffee: placeholderFood("coffee/breakfast"),
@@ -411,52 +367,51 @@ function buildDefaultGuide(country: Country): CountryGuideSections {
       {
         name: "Local market / hall",
         category: "Markets",
-        note: "Placeholder — name the one you actually browsed.",
+        note: "Name the one you actually browsed.",
       },
       {
         name: "Design or bookstore stop",
         category: "Shops",
-        note: "Good for a calm hour between bigger sightseeing blocks.",
+        note: "Good for a calm hour between sightseeing.",
       },
       {
         name: "Neighborhood shopping stroll",
         category: "Areas",
-        note: "Replace with a district where windows-shopping is part of the day.",
+        note: "A district where window-shopping is part of the day.",
       },
     ],
     logistics: {
-      gettingAround: `Start with how you actually moved through ${country.name} — trains, walks, rental, or a mix. Note what felt easy vs. annoying.`,
-      airport: "Add your arrival airport notes: distance to town, typical transfer time, and whether you’d Uber, train, or pre-book.",
-      transit: country.highlights[0] ?? "Placeholder: metro/bus passes, tap-to-pay, or apps that worked.",
-      cashCard: "Placeholder: ATM tips, small bills for markets, and where cards failed.",
+      gettingAround: `How you actually moved through ${country.name} — the short version.`,
+      airport: "Distance to town, typical transfer, and how you’d get in.",
+      transit: country.highlights[0] ?? "Placeholder: passes, tap-to-pay, or apps that worked.",
+      cashCard: "Placeholder: ATM tips and where cards failed.",
       tips:
         country.highlights.length > 1
           ? country.highlights.slice(1).join(" ")
-          : "Add 2–3 honest logistics tips you wish you knew earlier.",
+          : "Add one thing you wish you knew earlier.",
     },
     weather: {
-      bestMonths: "Placeholder — name your favorite shoulder season window and why.",
-      whatToExpect: `In short: expect ${country.region}-style surprises (wind, heat waves, sudden rain) even when the forecast looks fine.`,
-      whatToAvoid: "Placeholder — storm season, holiday closures, or weeks when crowds outweigh the vibe.",
+      bestMonths: "Placeholder — your favorite shoulder-season window.",
+      whatToExpect: `${country.region}-style surprises — wind, heat, sudden rain.`,
+      whatToAvoid: "Placeholder — storm season or weeks when crowds outweigh the vibe.",
     },
     packing: {
       bring: [
-        "A shell layer that works for chilly interiors and breezy evenings",
-        "Comfortable shoes you’d actually walk 8 miles in",
-        "Placeholder — add your one ‘glad I packed this’ item",
+        "A shell layer for chilly interiors and breezy evenings",
+        "Shoes you’d actually walk 8 miles in",
       ],
       wear: [
-        "Neutral layers that can dress up or down",
-        "One nicer outfit if you book a special dinner",
+        "Neutral layers that dress up or down",
+        "One nicer outfit for a special dinner",
       ],
       skip: [
         "Heavy gear you won’t use twice",
-        "Too many ‘just in case’ shoes",
+        "Too many “just in case” shoes",
       ],
     },
     finalThoughts: {
-      closing: `Would I recommend ${country.name}? Yes — especially if you like trips where the schedule has slack built in. It’s not about checking every box; it’s about liking where you are while you’re there.`,
-      whoItsFor: `Best for ${tripStyle.toLowerCase()} travelers who want real texture over a highlight reel — and who don’t mind doing a little homework before wheels-up.`,
+      closing: `Would I recommend ${country.name}? Yes — especially if you like trips where the schedule has slack built in.`,
+      whoItsFor: `Best for ${tripStyle.toLowerCase()} travelers who want real texture over a highlight reel.`,
     },
   };
 }

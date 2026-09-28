@@ -17,8 +17,10 @@ export type NeighborhoodEntry = {
 export type ShoppingEntry = {
   name: string;
   category: string;
+  /** Neighborhood or area — optional */
+  area?: string;
   note: string;
-  /** Optional photo for carousel cards */
+  /** Optional photo — used sparingly, this section stays typographic */
   image?: string;
 };
 
@@ -28,8 +30,6 @@ export type CountryGuideSections = {
   neighborhoods: NeighborhoodEntry[];
   thingsToDo: {
     mustDo: string[];
-    worthItIf: string[];
-    skipOrLower: string[];
   };
   foodDrink: {
     coffee: FoodEntry[];
@@ -44,6 +44,8 @@ export type CountryGuideSections = {
     transit: string;
     cashCard: string;
     tips: string;
+    /** A specific personal warning — rendered as a highlighted "learned this the hard way" callout. Optional; omit rather than invent one. */
+    warning?: string;
   };
   weather: {
     bestMonths: string;

@@ -1,4 +1,21 @@
-import type { HeroFact } from "@/lib/country-media";
+import type { ReactNode } from "react";
+
+/** Tiny purple handwritten annotation — the personal, margin-note touch. Use sparingly. */
+export function HandNote({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`inline-block whitespace-nowrap font-hand text-[1.1rem] leading-none text-[var(--color-signature)] ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
 
 const stroke = {
   stroke: "currentColor",
@@ -7,43 +24,6 @@ const stroke = {
   strokeLinejoin: "round" as const,
   fill: "none",
 };
-
-export function HeroFactIcon({
-  icon,
-  className = "h-5 w-5",
-}: {
-  icon: HeroFact["icon"];
-  className?: string;
-}) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden {...stroke}>
-      {icon === "calendar" ? (
-        <>
-          <rect x="4" y="5.5" width="16" height="14.5" rx="2" />
-          <path d="M8 3.5 V7.5 M16 3.5 V7.5 M4 10.5 H20" />
-        </>
-      ) : null}
-      {icon === "climate" ? (
-        <>
-          <circle cx="12" cy="12" r="3.25" />
-          <path d="M12 5.25 V3.5 M12 20.5 V18.75 M5.25 12 H3.5 M20.5 12 H18.75 M6.9 6.9 L5.7 5.7 M18.3 18.3 L17.1 17.1 M17.1 6.9 L18.3 5.7 M6.9 17.1 L5.7 18.3" />
-        </>
-      ) : null}
-      {icon === "transit" ? (
-        <>
-          <path d="M5 16.5 C8 12.5, 11 19, 15 14.5 C17.5 11.5, 19 12.5, 21 11" />
-          <circle cx="7.25" cy="16.15" r="1.15" />
-        </>
-      ) : null}
-      {icon === "pin" ? (
-        <>
-          <path d="M12 21 C12 21, 6.5 14.2, 6.5 10.2 A5.5 5.5 0 0 1 17.5 10.2 C17.5 14.2, 12 21, 12 21 Z" />
-          <circle cx="12" cy="10.2" r="1.8" />
-        </>
-      ) : null}
-    </svg>
-  );
-}
 
 export function WeatherIcon({
   kind,
@@ -136,6 +116,40 @@ export function SuitcaseMark({ className }: { className?: string }) {
       />
       <path d="M8 24 H40" stroke="currentColor" strokeWidth="1.1" />
       <circle cx="15.5" cy="29.5" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function SketchUnderline({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 140 14" className={className} fill="none" aria-hidden>
+      <path
+        d="M2 8 C 30 2, 60 12, 92 6 C 108 3, 122 9, 138 5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function SketchArrow({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 34" className={className} fill="none" aria-hidden>
+      <path
+        d="M2 8 C 20 4, 36 24, 56 18"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeDasharray="1.5 5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M47 12 L58 18 L48 25"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

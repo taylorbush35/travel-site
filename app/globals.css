@@ -17,14 +17,13 @@
   /* Strong delineation — still neutral, not black */
   --color-border: #958b80;
   --color-border-strong: #756c62;
-  --color-accent-soft: #e9e1d8;
   /* Primary brand accent — rich dark purple */
   --color-signature: #5b3a8e;
   --color-signature-strong: #472a6b;
   --color-signature-soft: #ebe4f4;
   --color-signature-ink: #3d265f;
-  --color-guide-cream: #f6f0e8;
-  --color-guide-warm: #f4ece3;
+  /* The ONE secondary warm surface — used everywhere a tinted area is needed */
+  --color-guide-surface: #f5eee4;
 }
 
 @theme inline {
